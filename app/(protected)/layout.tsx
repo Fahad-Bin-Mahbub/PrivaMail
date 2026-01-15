@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Header } from "@/components/dashboard/header";
 import { Sidebar } from "@/components/dashboard/sidebar";
@@ -10,11 +10,8 @@ import { useTheme } from "@/components/providers/theme-provider";
 import { db } from "@/lib/mock-db"; // Import db
 import { Label } from "@/lib/types";
 
-export default function ProtectedLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+// Inner component that uses useSearchParams
+function ProtectedLayoutContent({ children }: { children: React.ReactNode }) {
 	const { user, logout, isLoggedIn } = useAuth();
 	const { darkMode } = useTheme();
 	const router = useRouter();
@@ -198,3 +195,17 @@ export default function ProtectedLayout({
 		</div>
 	);
 }
+
+// Main layout export wraps in Suspense for useSearchParams
+export default function ProtectedLayout({
+	children,
+}: {
+	children: React.ReactNode;
+}) {
+	return (
+		<Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
+			<ProtectedLayoutContent>{children}</ProtectedLayoutContent>
+		</Suspense>
+	);
+}
+
