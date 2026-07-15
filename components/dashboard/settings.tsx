@@ -76,7 +76,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 	};
 
 	return (
-		<div className={`min-h-screen ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}>
+		<div className={`flex-1 pb-8 ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}>
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 				<div className="flex justify-between items-center mb-6">
 					<h1
@@ -86,14 +86,14 @@ export function Settings({ user, darkMode }: SettingsProps) {
 					>
 						<LucideIcons.Settings
 							className={`mr-2 h-6 w-6 ${
-								darkMode ? "text-indigo-400" : "text-indigo-600"
+								darkMode ? "text-brand-400" : "text-brand-600"
 							}`}
 						/>
 						Settings
 					</h1>
 					<button
 						onClick={() => router.push("/dashboard")}
-						className={`inline-flex items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+						className={`inline-flex items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 							darkMode
 								? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 								: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -175,8 +175,8 @@ export function Settings({ user, darkMode }: SettingsProps) {
 										className={`w-full flex items-center px-3 py-2 text-sm font-medium rounded-md ${
 											activeTab === item.id
 												? darkMode
-													? "bg-indigo-900 bg-opacity-40 text-indigo-200"
-													: "bg-indigo-50 text-indigo-700"
+													? "bg-brand-900 bg-opacity-40 text-brand-200"
+													: "bg-brand-50 text-brand-700"
 												: darkMode
 												? "text-gray-300 hover:bg-gray-750 transition-colors duration-200"
 												: "text-gray-700 hover:bg-gray-100 transition-colors duration-200"
@@ -224,7 +224,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 														id="name"
 														value={profileName}
 														onChange={(e) => setProfileName(e.target.value)}
-														className={`shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md ${
+														className={`shadow-sm p-2 focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border rounded-md ${
 															darkMode
 																? "border-gray-600 bg-gray-700 text-white"
 																: "border-gray-300 bg-white text-gray-900"
@@ -248,7 +248,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 														id="email"
 														value={profileEmail}
 														onChange={(e) => setProfileEmail(e.target.value)}
-														className={`shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md ${
+														className={`shadow-sm p-2 focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border rounded-md ${
 															darkMode
 																? "border-gray-600 bg-gray-700 text-white"
 																: "border-gray-300 bg-white text-gray-900"
@@ -279,7 +279,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 													/>
 													<button
 														type="button"
-														className={`inline-flex items-center px-3 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+														className={`inline-flex items-center px-3 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 															darkMode
 																? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 																: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -303,7 +303,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 												<div className="mt-1">
 													<select
 														id="language"
-														className={`shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md ${
+														className={`shadow-sm p-2 focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border rounded-md ${
 															darkMode
 																? "border-gray-600 bg-gray-700 text-white"
 																: "border-gray-300 bg-white text-gray-900"
@@ -331,7 +331,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 												<div className="mt-1">
 													<select
 														id="timezone"
-														className={`shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md ${
+														className={`shadow-sm p-2 focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border rounded-md ${
 															darkMode
 																? "border-gray-600 bg-gray-700 text-white"
 																: "border-gray-300 bg-white text-gray-900"
@@ -357,7 +357,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 														type="button"
 														onClick={handleSaveProfile}
 														disabled={isSaving}
-														className={`inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+														className={`inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 															isSaving ? "opacity-70 cursor-not-allowed" : ""
 														}`}
 													>
@@ -431,7 +431,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 															<input
 																type="password"
 																id="current-password"
-																className={`shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md ${
+																className={`shadow-sm p-2 focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border rounded-md ${
 																	darkMode
 																		? "border-gray-600 bg-gray-700 text-white"
 																		: "border-gray-300 bg-white text-gray-900"
@@ -453,7 +453,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 															<input
 																type="password"
 																id="new-password"
-																className={`shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md ${
+																className={`shadow-sm p-2 focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border rounded-md ${
 																	darkMode
 																		? "border-gray-600 bg-gray-700 text-white"
 																		: "border-gray-300 bg-white text-gray-900"
@@ -475,7 +475,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 															<input
 																type="password"
 																id="confirm-password"
-																className={`shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md ${
+																className={`shadow-sm p-2 focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border rounded-md ${
 																	darkMode
 																		? "border-gray-600 bg-gray-700 text-white"
 																		: "border-gray-300 bg-white text-gray-900"
@@ -487,7 +487,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 													<div className="flex justify-end">
 														<button
 															type="button"
-															className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+															className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200"
 														>
 															<LucideIcons.Check className="mr-1.5 h-4 w-4" />
 															Update Password
@@ -537,7 +537,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 																htmlFor="toggle-2fa"
 																className={`toggle-label block overflow-hidden h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out ${
 																	user?.twoFactorEnabled
-																		? "bg-indigo-600"
+																		? "bg-brand-600"
 																		: darkMode
 																		? "bg-gray-600"
 																		: "bg-gray-300"
@@ -549,7 +549,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 														<div className="mt-4">
 															<button
 																type="button"
-																className={`inline-flex items-center px-3 py-1.5 border shadow-sm text-xs font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+																className={`inline-flex items-center px-3 py-1.5 border shadow-sm text-xs font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 																	darkMode
 																		? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 																		: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -560,7 +560,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 															</button>
 															<button
 																type="button"
-																className={`ml-2 inline-flex items-center px-3 py-1.5 border shadow-sm text-xs font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+																className={`ml-2 inline-flex items-center px-3 py-1.5 border shadow-sm text-xs font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 																	darkMode
 																		? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 																		: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -656,7 +656,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 																			<div className="ml-2 flex-shrink-0">
 																				<button
 																					type="button"
-																					className={`inline-flex items-center px-2.5 py-1.5 border shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+																					className={`inline-flex items-center px-2.5 py-1.5 border shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 																						darkMode
 																							? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 																							: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -747,7 +747,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 											<button
 												type="button"
 												onClick={() => setShowAddKeyModal(true)}
-												className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+												className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200"
 											>
 												<LucideIcons.Plus className="mr-1.5 h-4 w-4" />
 												Add New Key
@@ -757,29 +757,29 @@ export function Settings({ user, darkMode }: SettingsProps) {
 										<div
 											className={`p-4 rounded-md border mb-6 ${
 												darkMode
-													? "bg-indigo-900 bg-opacity-20 border-indigo-800"
-													: "bg-indigo-50 border-indigo-100"
+													? "bg-brand-900 bg-opacity-20 border-brand-800"
+													: "bg-brand-50 border-brand-100"
 											}`}
 										>
 											<div className="flex">
 												<div className="flex-shrink-0">
 													<LucideIcons.Info
 														className={`h-5 w-5 ${
-															darkMode ? "text-indigo-400" : "text-indigo-600"
+															darkMode ? "text-brand-400" : "text-brand-600"
 														}`}
 													/>
 												</div>
 												<div className="ml-3">
 													<h3
 														className={`text-sm font-medium ${
-															darkMode ? "text-indigo-200" : "text-indigo-800"
+															darkMode ? "text-brand-200" : "text-brand-800"
 														}`}
 													>
 														About Encryption Keys
 													</h3>
 													<p
 														className={`mt-2 text-sm ${
-															darkMode ? "text-indigo-300" : "text-indigo-700"
+															darkMode ? "text-brand-300" : "text-brand-700"
 														}`}
 													>
 														Encryption keys are used to secure your emails. We
@@ -874,7 +874,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 													<div className="mt-4 flex space-x-2">
 														<button
 															type="button"
-															className={`inline-flex items-center px-2.5 py-1.5 border shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+															className={`inline-flex items-center px-2.5 py-1.5 border shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 																darkMode
 																	? "border-gray-600 text-gray-300 bg-gray-700 hover:bg-gray-600"
 																	: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -885,7 +885,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 														</button>
 														<button
 															type="button"
-															className={`inline-flex items-center px-2.5 py-1.5 border shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+															className={`inline-flex items-center px-2.5 py-1.5 border shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 																darkMode
 																	? "border-gray-600 text-gray-300 bg-gray-700 hover:bg-gray-600"
 																	: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -986,7 +986,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 													<div className="mt-4 flex space-x-2">
 														<button
 															type="button"
-															className={`inline-flex items-center px-2.5 py-1.5 border shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+															className={`inline-flex items-center px-2.5 py-1.5 border shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 																darkMode
 																	? "border-gray-600 text-gray-300 bg-gray-700 hover:bg-gray-600"
 																	: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -997,7 +997,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 														</button>
 														<button
 															type="button"
-															className="inline-flex items-center px-2.5 py-1.5 text-xs font-medium rounded text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+															className="inline-flex items-center px-2.5 py-1.5 text-xs font-medium rounded text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200"
 														>
 															<LucideIcons.Check className="mr-1 h-4 w-4" />
 															Set as Active
@@ -1023,7 +1023,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 											<button
 												type="button"
 												onClick={() => setShowAddAccountModal(true)}
-												className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+												className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200"
 											>
 												<LucideIcons.Plus className="mr-1.5 h-4 w-4" />
 												Add Account
@@ -1118,15 +1118,15 @@ export function Settings({ user, darkMode }: SettingsProps) {
 																	<div
 																		className={`h-10 w-10 flex items-center justify-center rounded-full ${
 																			darkMode
-																				? "bg-purple-900"
-																				: "bg-purple-100"
+																				? "bg-accent-900"
+																				: "bg-accent-100"
 																		}`}
 																	>
 																		<svg
 																			className={`h-6 w-6 ${
 																				darkMode
-																					? "text-purple-400"
-																					: "text-purple-600"
+																					? "text-accent-400"
+																					: "text-accent-600"
 																			}`}
 																			viewBox="0 0 24 24"
 																			fill="currentColor"
@@ -1184,7 +1184,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 																</span>
 																<button
 																	type="button"
-																	className={`inline-flex items-center p-1 border border-transparent rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+																	className={`inline-flex items-center p-1 border border-transparent rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 																		darkMode
 																			? "text-gray-400 hover:text-gray-300"
 																			: "text-gray-400 hover:text-gray-500"
@@ -1263,7 +1263,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 															/>
 															<label
 																htmlFor="toggle-new-message"
-																className="toggle-label block overflow-hidden h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out bg-indigo-600"
+																className="toggle-label block overflow-hidden h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out bg-brand-600"
 															></label>
 														</div>
 													</div>
@@ -1300,7 +1300,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 															/>
 															<label
 																htmlFor="toggle-read-receipt"
-																className="toggle-label block overflow-hidden h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out bg-indigo-600"
+																className="toggle-label block overflow-hidden h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out bg-brand-600"
 															></label>
 														</div>
 													</div>
@@ -1337,7 +1337,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 															/>
 															<label
 																htmlFor="toggle-expire-reminder"
-																className="toggle-label block overflow-hidden h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out bg-indigo-600"
+																className="toggle-label block overflow-hidden h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out bg-brand-600"
 															></label>
 														</div>
 													</div>
@@ -1390,7 +1390,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 															/>
 															<label
 																htmlFor="toggle-desktop-notifications"
-																className="toggle-label block overflow-hidden h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out bg-indigo-600"
+																className="toggle-label block overflow-hidden h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out bg-brand-600"
 															></label>
 														</div>
 													</div>
@@ -1444,7 +1444,7 @@ export function Settings({ user, darkMode }: SettingsProps) {
 												<div className="flex justify-end">
 													<button
 														type="button"
-														className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+														className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200"
 													>
 														<LucideIcons.Save className="mr-1.5 h-4 w-4" />
 														Save Preferences
@@ -1467,30 +1467,30 @@ export function Settings({ user, darkMode }: SettingsProps) {
 										</h2>
 
 										{/* Current Plan */}
-										<div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg text-white p-6 mb-6">
+										<div className="bg-gradient-to-r from-brand-600 to-accent-600 rounded-lg text-white p-6 mb-6">
 											<div className="flex justify-between items-start">
 												<div>
-													<span className="inline-block px-2 py-1 bg-white text-indigo-600 bg-opacity-20 rounded text-xs font-medium mb-2">
+													<span className="inline-block px-2 py-1 bg-white text-brand-600 bg-opacity-20 rounded text-xs font-medium mb-2">
 														Current Plan
 													</span>
 													<h3 className="text-2xl font-bold">Pro Plan</h3>
-													<div className="mt-1 text-indigo-100">
+													<div className="mt-1 text-brand-100">
 														$4.99 / month
 													</div>
-													<p className="mt-2 text-sm text-indigo-100">
+													<p className="mt-2 text-sm text-brand-100">
 														Your next billing date is July 15, 2025
 													</p>
 												</div>
-												<button className="px-4 py-2 bg-white text-indigo-600 rounded-md text-sm font-medium hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 transition-colors duration-200">
+												<button className="px-4 py-2 bg-white text-brand-600 rounded-md text-sm font-medium hover:bg-brand-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 transition-colors duration-200">
 													Upgrade Plan
 												</button>
 											</div>
 											<div className="mt-4 grid grid-cols-3 gap-4">
 												<div className="bg-white bg-opacity-10 rounded-lg p-3">
-													<h4 className="text-xs font-medium text-indigo-800">
+													<h4 className="text-xs font-medium text-brand-800">
 														Storage
 													</h4>
-													<div className="mt-1 text-lg font-bold text-indigo-500">
+													<div className="mt-1 text-lg font-bold text-brand-500">
 														1.5 GB / 5 GB
 													</div>
 													<div className="mt-2 w-full bg-white bg-opacity-30 rounded-full h-1.5">
@@ -1501,10 +1501,10 @@ export function Settings({ user, darkMode }: SettingsProps) {
 													</div>
 												</div>
 												<div className="bg-white bg-opacity-10 rounded-lg p-3">
-													<h4 className="text-xs font-medium text-indigo-800">
+													<h4 className="text-xs font-medium text-brand-800">
 														Email Accounts
 													</h4>
-													<div className="mt-1 text-lg font-bold text-indigo-500">
+													<div className="mt-1 text-lg font-bold text-brand-500">
 														1 / 5
 													</div>
 													<div className="mt-2 w-full bg-white bg-opacity-30 rounded-full h-1.5">
@@ -1515,13 +1515,13 @@ export function Settings({ user, darkMode }: SettingsProps) {
 													</div>
 												</div>
 												<div className="bg-white bg-opacity-10 rounded-lg p-3">
-													<h4 className="text-xs font-medium text-indigo-800">
+													<h4 className="text-xs font-medium text-brand-800">
 														Features
 													</h4>
-													<div className="mt-1 text-sm font-bold text-indigo-500">
+													<div className="mt-1 text-sm font-bold text-brand-500">
 														All Pro Features
 													</div>
-													<div className="mt-1 text-xs text-indigo-500">
+													<div className="mt-1 text-xs text-brand-500">
 														<LucideIcons.Check className="inline-block h-3 w-3 mr-1" />
 														Self-destructing emails
 													</div>
@@ -1578,8 +1578,8 @@ export function Settings({ user, darkMode }: SettingsProps) {
 													<button
 														className={`text-sm font-medium ${
 															darkMode
-																? "text-indigo-400 hover:text-indigo-300"
-																: "text-indigo-600 hover:text-indigo-800"
+																? "text-brand-400 hover:text-brand-300"
+																: "text-brand-600 hover:text-brand-800"
 														}`}
 													>
 														Update
@@ -1702,8 +1702,8 @@ export function Settings({ user, darkMode }: SettingsProps) {
 																		<button
 																			className={
 																				darkMode
-																					? "text-indigo-400 hover:text-indigo-300"
-																					: "text-indigo-600 hover:text-indigo-800"
+																					? "text-brand-400 hover:text-brand-300"
+																					: "text-brand-600 hover:text-brand-800"
 																			}
 																		>
 																			Download

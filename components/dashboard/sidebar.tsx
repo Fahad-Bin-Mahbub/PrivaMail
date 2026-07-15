@@ -41,11 +41,11 @@ export function Sidebar({
 				? "bg-yellow-900 bg-opacity-50 text-yellow-300"
 				: "bg-yellow-100 text-yellow-800",
 			purple: darkMode
-				? "bg-purple-900 bg-opacity-50 text-purple-300"
-				: "bg-purple-100 text-purple-800",
+				? "bg-accent-900 bg-opacity-50 text-accent-300"
+				: "bg-accent-100 text-accent-800",
 			indigo: darkMode
-				? "bg-indigo-900 bg-opacity-50 text-indigo-300"
-				: "bg-indigo-100 text-indigo-800",
+				? "bg-brand-900 bg-opacity-50 text-brand-300"
+				: "bg-brand-100 text-brand-800",
 			pink: darkMode
 				? "bg-pink-900 bg-opacity-50 text-pink-300"
 				: "bg-pink-100 text-pink-800",
@@ -65,7 +65,7 @@ export function Sidebar({
 			<div className="p-4">
 				<button
 					onClick={onCompose}
-					className="w-full flex justify-center items-center py-2 px-4 rounded-lg shadow-lg text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 transform hover:-translate-y-0.5"
+					className="w-full flex justify-center items-center py-2 px-4 rounded-lg shadow-lg text-sm font-medium text-white bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all duration-200 transform hover:-translate-y-0.5 tour-compose"
 				>
 					<LucideIcons.PenSquare className="mr-2 h-5 w-5" />
 					Compose
@@ -73,14 +73,14 @@ export function Sidebar({
 			</div>
 			</div>
 			<div className="flex-1 flex flex-col overflow-y-auto">
-				<nav className="flex-1 px-2 py-2 space-y-1">
+				<nav className="flex-1 px-2 py-2 space-y-1 tour-folders">
 					<Link
 						href="/dashboard/inbox"
 						className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center ${
 							isActive("/inbox") || pathname === "/dashboard"
 								? darkMode
-									? "bg-indigo-900 bg-opacity-20 text-indigo-200"
-									: "bg-indigo-50 text-indigo-700"
+									? "bg-brand-900 bg-opacity-20 text-brand-200"
+									: "bg-brand-50 text-brand-700"
 								: darkMode
 								? "text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-200"
 								: "text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200"
@@ -89,7 +89,7 @@ export function Sidebar({
 						<LucideIcons.Inbox className="mr-3 h-5 w-5" />
 						Inbox
 						{(unreadCounts["inbox"] || 0) > 0 && (
-							<span className="ml-auto py-0.5 px-2 rounded-full text-xs bg-indigo-600 text-white">
+							<span className="ml-auto py-0.5 px-2 rounded-full text-xs bg-brand-600 text-white">
 								{unreadCounts["inbox"]}
 							</span>
 						)}
@@ -100,8 +100,8 @@ export function Sidebar({
 						className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center ${
 							isActive("/encrypted")
 								? darkMode
-									? "bg-indigo-900 bg-opacity-20 text-indigo-200"
-									: "bg-indigo-50 text-indigo-700"
+									? "bg-brand-900 bg-opacity-20 text-brand-200"
+									: "bg-brand-50 text-brand-700"
 								: darkMode
 								? "text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-200"
 								: "text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200"
@@ -110,7 +110,7 @@ export function Sidebar({
 						<LucideIcons.Lock className="mr-3 h-5 w-5" />
 						Encrypted
 						{(unreadCounts["encrypted"] || 0) > 0 && (
-							<span className="ml-auto py-0.5 px-2 rounded-full text-xs bg-indigo-600 text-white">
+							<span className="ml-auto py-0.5 px-2 rounded-full text-xs bg-brand-600 text-white">
 								{unreadCounts["encrypted"]}
 							</span>
 						)}
@@ -121,8 +121,8 @@ export function Sidebar({
 						className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center ${
 							isActive("/starred")
 								? darkMode
-									? "bg-indigo-900 bg-opacity-20 text-indigo-200"
-									: "bg-indigo-50 text-indigo-700"
+									? "bg-brand-900 bg-opacity-20 text-brand-200"
+									: "bg-brand-50 text-brand-700"
 								: darkMode
 								? "text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-200"
 								: "text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200"
@@ -137,8 +137,8 @@ export function Sidebar({
 						className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center ${
 							isActive("/sent")
 								? darkMode
-									? "bg-indigo-900 bg-opacity-20 text-indigo-200"
-									: "bg-indigo-50 text-indigo-700"
+									? "bg-brand-900 bg-opacity-20 text-brand-200"
+									: "bg-brand-50 text-brand-700"
 								: darkMode
 								? "text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-200"
 								: "text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200"
@@ -153,8 +153,8 @@ export function Sidebar({
 						className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center ${
 							isActive("/drafts")
 								? darkMode
-									? "bg-indigo-900 bg-opacity-20 text-indigo-200"
-									: "bg-indigo-50 text-indigo-700"
+									? "bg-brand-900 bg-opacity-20 text-brand-200"
+									: "bg-brand-50 text-brand-700"
 								: darkMode
 								? "text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-200"
 								: "text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200"
@@ -169,8 +169,8 @@ export function Sidebar({
 						className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center ${
 							isActive("/trash")
 								? darkMode
-									? "bg-indigo-900 bg-opacity-20 text-indigo-200"
-									: "bg-indigo-50 text-indigo-700"
+									? "bg-brand-900 bg-opacity-20 text-brand-200"
+									: "bg-brand-50 text-brand-700"
 								: darkMode
 								? "text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-200"
 								: "text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200"
@@ -182,11 +182,11 @@ export function Sidebar({
 
 					<Link
 						href="/settings"
-						className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center ${
+						className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center tour-settings ${
 							isActive("/settings")
 								? darkMode
-									? "bg-indigo-900 bg-opacity-20 text-indigo-200"
-									: "bg-indigo-50 text-indigo-700"
+									? "bg-brand-900 bg-opacity-20 text-brand-200"
+									: "bg-brand-50 text-brand-700"
 								: darkMode
 								? "text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-200"
 								: "text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200"
@@ -209,8 +209,8 @@ export function Sidebar({
 								<button
 									className={`transition-colors duration-200 p-0.5 rounded-full ${
 										darkMode
-											? "hover:bg-gray-700 hover:text-indigo-400"
-											: "hover:bg-gray-200 hover:text-indigo-600"
+											? "hover:bg-gray-700 hover:text-brand-400"
+											: "hover:bg-gray-200 hover:text-brand-600"
 									}`}
 								>
 									<LucideIcons.Plus className="h-3 w-3" />
@@ -304,7 +304,7 @@ export function Sidebar({
 								)}
 								{account.provider === "yahoo" && (
 									<svg
-										className="mr-2 h-4 w-4 text-purple-600"
+										className="mr-2 h-4 w-4 text-accent-600"
 										viewBox="0 0 24 24"
 										fill="currentColor"
 									>
@@ -325,8 +325,8 @@ export function Sidebar({
 							<button
 								className={`flex items-center px-2 py-1.5 text-sm transition-colors duration-200 ${
 									darkMode
-										? "text-indigo-400 hover:text-indigo-300"
-										: "text-indigo-600 hover:text-indigo-700"
+										? "text-brand-400 hover:text-brand-300"
+										: "text-brand-600 hover:text-brand-700"
 								}`}
 							>
 								<LucideIcons.Plus className="mr-2 h-4 w-4" />
@@ -336,27 +336,47 @@ export function Sidebar({
 					</ul>
 				</div>
 
-				<div className="px-3 py-4 mx-2 mt-4 mb-4 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg">
+				<div
+					className={`px-3 py-4 mx-2 mt-4 mb-4 rounded-lg ${
+						darkMode ? "bg-gray-700/50" : "bg-gray-50"
+					}`}
+				>
 					<div className="flex items-center justify-between">
-						<h3 className="text-xs font-semibold uppercase tracking-wider text-indigo-100">
+						<h3
+							className={`text-xs font-semibold uppercase tracking-wider ${
+								darkMode ? "text-gray-400" : "text-gray-500"
+							}`}
+						>
 							Storage
 						</h3>
-						<span className="text-xs text-indigo-100">30% used</span>
+						<span
+							className={`text-xs ${
+								darkMode ? "text-gray-400" : "text-gray-500"
+							}`}
+						>
+							30% used
+						</span>
 					</div>
 					<div
-						className={`mt-2 w-full rounded-full h-2.5 overflow-hidden ${
-							darkMode ? "bg-indigo-100" : "bg-indigo-800"
-						} bg-opacity-50`}
+						className={`mt-2.5 mb-2 w-full rounded-full h-1.5 overflow-hidden ${
+							darkMode ? "bg-gray-600" : "bg-gray-200"
+						}`}
 					>
-						<div
-							className={`${
-								darkMode ? "bg-indigo-800" : "bg-indigo-100"
-							} h-2.5 rounded-full w-[30%]`}
-						></div>
+						<div className="bg-brand-500 h-1.5 rounded-full w-[30%]"></div>
 					</div>
-					<div className="mt-1 text-xs flex justify-between text-indigo-100">
-						<span>1.5 GB of 5 GB used</span>
-						<button className="transition-colors duration-200 font-medium hover:text-white hover:underline">
+					<div
+						className={`text-xs flex justify-between ${
+							darkMode ? "text-gray-400" : "text-gray-500"
+						}`}
+					>
+						<span>1.5 GB of 5 GB</span>
+						<button
+							className={`transition-colors duration-200 font-medium ${
+								darkMode
+									? "text-brand-400 hover:text-brand-300"
+									: "text-brand-600 hover:text-brand-700"
+							}`}
+						>
 							Upgrade
 						</button>
 					</div>

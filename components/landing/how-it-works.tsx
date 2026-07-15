@@ -59,8 +59,8 @@ export function HowItWorks() {
 					<span
 						className={`inline-block px-3 py-1 mb-4 text-xs font-semibold rounded-full ${
 							darkMode
-								? "text-indigo-400 bg-indigo-900 bg-opacity-50"
-								: "text-indigo-600 bg-indigo-100"
+								? "text-brand-400 bg-brand-900 bg-opacity-50"
+								: "text-brand-600 bg-brand-100"
 						}`}
 					>
 						The Process
@@ -84,14 +84,14 @@ export function HowItWorks() {
 				<div className="mt-16">
 					<div className="relative">
 						{/* The line connecting the steps for desktop */}
-						<div className="hidden lg:block absolute top-0 left-1/2 w-0.5 h-full bg-gradient-to-b from-indigo-600 via-purple-600 to-indigo-600 transform -translate-x-1/2"></div>
+						<div className="hidden lg:block absolute top-0 left-1/2 w-0.5 h-full bg-gradient-to-b from-brand-600 via-accent-600 to-brand-600 transform -translate-x-1/2"></div>
 
 						<div className="space-y-16 lg:space-y-28">
 							{/* Step 1 */}
 							<div className="relative">
 								<div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
 									<div className="mb-8 lg:mb-0 lg:pr-12 text-center lg:text-right order-2 lg:order-1">
-										<span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 mb-4 lg:mb-0 lg:hidden">
+										<span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-100 text-brand-600 mb-4 lg:mb-0 lg:hidden">
 											1
 										</span>
 										<h3
@@ -116,7 +116,7 @@ export function HowItWorks() {
 											<div className="flex items-start">
 												<LucideIcons.Key
 													className={`h-5 w-5 mt-0.5 mr-2 ${
-														darkMode ? "text-indigo-400" : "text-indigo-600"
+														darkMode ? "text-brand-400" : "text-brand-600"
 													}`}
 												/>
 												<div>
@@ -142,7 +142,7 @@ export function HowItWorks() {
 
 									<div className="order-1 lg:order-2 relative">
 										{/* The numbered circle for desktop */}
-										<div className="hidden lg:flex absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-xl items-center justify-center shadow-lg">
+										<div className="hidden lg:flex absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 text-white font-bold text-xl items-center justify-center shadow-lg">
 											1
 										</div>
 
@@ -153,15 +153,15 @@ export function HowItWorks() {
 													: "bg-white border-gray-200"
 											}`}
 										>
-											<div className="p-1 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+											<div className="p-1 bg-gradient-to-r from-brand-500 to-accent-600"></div>
 											<div className="p-6">
 												<div className="flex justify-between items-center mb-6">
 													<div className="flex items-center">
 														<LucideIcons.Shield
 															className={`h-8 w-8 ${
 																darkMode
-																	? "text-indigo-400"
-																	: "text-indigo-600"
+																	? "text-brand-400"
+																	: "text-brand-600"
 															}`}
 														/>
 														<span
@@ -192,7 +192,7 @@ export function HowItWorks() {
 														</label>
 														<input
 															type="text"
-															className={`w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
+															className={`w-full px-3 py-2 border rounded-md shadow-sm focus:ring-brand-500 focus:border-brand-500 ${
 																darkMode
 																	? "border-gray-600 bg-gray-700 text-white"
 																	: "border-gray-300 bg-white text-gray-900"
@@ -212,7 +212,7 @@ export function HowItWorks() {
 														</label>
 														<input
 															type="email"
-															className={`w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
+															className={`w-full px-3 py-2 border rounded-md shadow-sm focus:ring-brand-500 focus:border-brand-500 ${
 																darkMode
 																	? "border-gray-600 bg-gray-700 text-white"
 																	: "border-gray-300 bg-white text-gray-900"
@@ -223,10 +223,10 @@ export function HowItWorks() {
 													</div>
 
 													<div className="pt-3">
-														<button className="w-full px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md shadow-sm transition-colors duration-200 flex items-center justify-center">
+														<div className="inline-flex w-full px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-md shadow-sm transition-colors duration-200 flex items-center justify-center">
 															<LucideIcons.Key className="mr-2 h-5 w-5" />
 															Generate Encryption Keys
-														</button>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -240,7 +240,7 @@ export function HowItWorks() {
 								<div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
 									<div className="order-1 relative">
 										{/* The numbered circle for desktop */}
-										<div className="hidden lg:flex absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-xl items-center justify-center shadow-lg">
+										<div className="hidden lg:flex absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 text-white font-bold text-xl items-center justify-center shadow-lg">
 											2
 										</div>
 
@@ -251,15 +251,15 @@ export function HowItWorks() {
 													: "bg-white border-gray-200"
 											}`}
 										>
-											<div className="p-1 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+											<div className="p-1 bg-gradient-to-r from-brand-500 to-accent-600"></div>
 											<div className="p-6">
 												<div className="flex justify-between items-center mb-6">
 													<div className="flex items-center">
 														<LucideIcons.PenTool
 															className={`h-7 w-7 ${
 																darkMode
-																	? "text-indigo-400"
-																	: "text-indigo-600"
+																	? "text-brand-400"
+																	: "text-brand-600"
 															}`}
 														/>
 														<span
@@ -290,7 +290,7 @@ export function HowItWorks() {
 														</label>
 														<input
 															type="text"
-															className={`w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
+															className={`w-full px-3 py-2 border rounded-md shadow-sm focus:ring-brand-500 focus:border-brand-500 ${
 																darkMode
 																	? "border-gray-600 bg-gray-700 text-white"
 																	: "border-gray-300 bg-white text-gray-900"
@@ -310,7 +310,7 @@ export function HowItWorks() {
 														</label>
 														<input
 															type="text"
-															className={`w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
+															className={`w-full px-3 py-2 border rounded-md shadow-sm focus:ring-brand-500 focus:border-brand-500 ${
 																darkMode
 																	? "border-gray-600 bg-gray-700 text-white"
 																	: "border-gray-300 bg-white text-gray-900"
@@ -365,10 +365,10 @@ export function HowItWorks() {
 															</span>
 														</div>
 														<div className="ml-auto">
-															<button className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md shadow-sm transition-colors duration-200 text-sm flex items-center">
+															<div className="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-md shadow-sm transition-colors duration-200 text-sm flex items-center">
 																<LucideIcons.Send className="mr-1.5 h-4 w-4" />
 																Send Secure
-															</button>
+															</div>
 														</div>
 													</div>
 												</div>
@@ -377,7 +377,7 @@ export function HowItWorks() {
 									</div>
 
 									<div className="mt-8 lg:mt-0 lg:pl-12 text-center lg:text-left order-2">
-										<span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 mb-4 lg:mb-0 lg:hidden">
+										<span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-100 text-brand-600 mb-4 lg:mb-0 lg:hidden">
 											2
 										</span>
 										<h3
@@ -432,7 +432,7 @@ export function HowItWorks() {
 							<div className="relative">
 								<div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
 									<div className="mb-8 lg:mb-0 lg:pr-12 text-center lg:text-right order-2 lg:order-1">
-										<span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 mb-4 lg:mb-0 lg:hidden">
+										<span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-100 text-brand-600 mb-4 lg:mb-0 lg:hidden">
 											3
 										</span>
 										<h3
@@ -457,7 +457,7 @@ export function HowItWorks() {
 											<div className="flex items-start">
 												<LucideIcons.Shield
 													className={`h-5 w-5 mt-0.5 mr-2 ${
-														darkMode ? "text-indigo-400" : "text-indigo-600"
+														darkMode ? "text-brand-400" : "text-brand-600"
 													}`}
 												/>
 												<div>
@@ -482,7 +482,7 @@ export function HowItWorks() {
 
 									<div className="order-1 lg:order-2 relative">
 										{/* The numbered circle for desktop */}
-										<div className="hidden lg:flex absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-xl items-center justify-center shadow-lg">
+										<div className="hidden lg:flex absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 text-white font-bold text-xl items-center justify-center shadow-lg">
 											3
 										</div>
 
@@ -493,7 +493,7 @@ export function HowItWorks() {
 													: "bg-white border-gray-200"
 											}`}
 										>
-											<div className="p-1 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+											<div className="p-1 bg-gradient-to-r from-brand-500 to-accent-600"></div>
 											<div className="p-6">
 												<div className="flex justify-between items-center mb-6">
 													<span
@@ -528,7 +528,7 @@ export function HowItWorks() {
 												</div>
 
 												<div className="flex justify-center">
-													<div className="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg animate-pulse">
+													<div className="w-24 h-24 bg-gradient-to-br from-brand-500 to-accent-600 rounded-full flex items-center justify-center shadow-lg animate-pulse">
 														<div
 															className={`w-16 h-16 rounded-full flex items-center justify-center ${
 																darkMode ? "bg-gray-800" : "bg-white"
@@ -537,8 +537,8 @@ export function HowItWorks() {
 															<LucideIcons.Lock
 																className={`h-8 w-8 ${
 																	darkMode
-																		? "text-indigo-400"
-																		: "text-indigo-600"
+																		? "text-brand-400"
+																		: "text-brand-600"
 																}`}
 															/>
 														</div>
@@ -590,7 +590,7 @@ export function HowItWorks() {
 								<div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
 									<div className="order-1 relative">
 										{/* The numbered circle for desktop */}
-										<div className="hidden lg:flex absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-xl items-center justify-center shadow-lg">
+										<div className="hidden lg:flex absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 text-white font-bold text-xl items-center justify-center shadow-lg">
 											4
 										</div>
 
@@ -601,12 +601,12 @@ export function HowItWorks() {
 													: "bg-white border-gray-200"
 											}`}
 										>
-											<div className="p-1 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+											<div className="p-1 bg-gradient-to-r from-brand-500 to-accent-600"></div>
 											<div className="p-6">
 												<div className="flex justify-between items-center mb-6">
 													<div className="flex items-center">
-														<div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center">
-															<span className="text-lg font-bold text-indigo-600">
+														<div className="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center">
+															<span className="text-lg font-bold text-brand-600">
 																A
 															</span>
 														</div>
@@ -680,8 +680,8 @@ export function HowItWorks() {
 															<LucideIcons.FileText
 																className={`h-3.5 w-3.5 mr-1.5 ${
 																	darkMode
-																		? "text-indigo-400"
-																		: "text-indigo-600"
+																		? "text-brand-400"
+																		: "text-brand-600"
 																}`}
 															/>
 															project-update.pdf (2.4 MB)
@@ -690,8 +690,8 @@ export function HowItWorks() {
 												</div>
 
 												<div className="flex justify-between">
-													<button
-														type="button"
+													<div
+
 														className={`px-3 py-1.5 border text-sm font-medium rounded-md transition-colors duration-200 flex items-center ${
 															darkMode
 																? "border-gray-600 text-gray-300 hover:bg-gray-700"
@@ -700,21 +700,21 @@ export function HowItWorks() {
 													>
 														<LucideIcons.Reply className="mr-1.5 h-4 w-4" />
 														Reply
-													</button>
-													<button
-														type="button"
-														className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-md shadow-sm transition-colors duration-200 flex items-center"
+													</div>
+													<div
+
+														className="px-3 py-1.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium rounded-md shadow-sm transition-colors duration-200 flex items-center"
 													>
 														<LucideIcons.Download className="mr-1.5 h-4 w-4" />
 														Download
-													</button>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 
 									<div className="mt-8 lg:mt-0 lg:pl-12 text-center lg:text-left order-2">
-										<span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 mb-4 lg:mb-0 lg:hidden">
+										<span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-100 text-brand-600 mb-4 lg:mb-0 lg:hidden">
 											4
 										</span>
 										<h3
@@ -739,7 +739,7 @@ export function HowItWorks() {
 											<div className="flex items-start">
 												<LucideIcons.Eye
 													className={`h-5 w-5 mt-0.5 mr-2 ${
-														darkMode ? "text-indigo-400" : "text-indigo-600"
+														darkMode ? "text-brand-400" : "text-brand-600"
 													}`}
 												/>
 												<div>
@@ -769,7 +769,7 @@ export function HowItWorks() {
 
 				{/* Call to action within how it works */}
 				<div className="mt-20 text-center">
-					<div className="inline-block p-0.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg">
+					<div className="inline-block p-0.5 rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 shadow-lg">
 						<div
 							className={`rounded-lg px-6 py-8 sm:px-10 sm:py-10 ${
 								darkMode ? "bg-gray-800" : "bg-white"
@@ -793,7 +793,7 @@ export function HowItWorks() {
 							<div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
 								<Link
 									href="/register"
-									className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center"
+									className="px-6 py-3 bg-gradient-to-r from-brand-600 to-accent-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center"
 								>
 									<LucideIcons.UserPlus className="mr-2 h-5 w-5" />
 									Create Free Account
@@ -802,8 +802,8 @@ export function HowItWorks() {
 									onClick={handleDemoLogin}
 									className={`px-6 py-3 font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center ${
 										darkMode
-											? "bg-gray-700 text-indigo-400"
-											: "bg-white text-indigo-600"
+											? "bg-gray-700 text-brand-400"
+											: "bg-white text-brand-600"
 									}`}
 								>
 									<LucideIcons.Play className="mr-2 h-5 w-5" />

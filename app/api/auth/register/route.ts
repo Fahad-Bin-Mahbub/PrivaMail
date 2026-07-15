@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/mock-db";
+import { db } from "@/lib/db";
 import { User } from "@/lib/types";
 
 export async function POST(request: Request) {

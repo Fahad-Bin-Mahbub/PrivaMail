@@ -1,4 +1,5 @@
 import { User, Email, EncryptionKey } from "./types";
+import { IDatabase } from "./db-interface";
 
 // Initial Seed Data
 const INITIAL_USER: User = {
@@ -117,6 +118,7 @@ const INITIAL_EMAILS: Email[] = [
 			},
 		],
 		isEncrypted: true,
+		passwordProtected: true,
 		encryptionLevel: "high",
 		timestamp: new Date(Date.now() - 345600000), // 4 days ago
 		read: false,
@@ -207,7 +209,7 @@ const INITIAL_EMAILS: Email[] = [
 	},
 ];
 
-class MockDatabase {
+export class MockDatabase implements IDatabase {
 	private users: User[] = [];
 	private emails: Email[] = [];
 
@@ -288,9 +290,26 @@ class MockDatabase {
 	}
 
 	async deleteEmail(id: string): Promise<boolean> {
-		const initialLength = this.emails.length;
-		this.emails = this.emails.filter((e) => e.id !== id);
-		return this.emails.length !== initialLength;
+		const index = this.emails.findIndex((e) => e.id === id);
+		if (index === -1) return false;
+		if (this.emails[index].folder === "trash") {
+			// Permanently delete
+			this.emails.splice(index, 1);
+		} else {
+			// Move to trash
+			this.emails[index].folder = "trash";
+		}
+		return true;
+	}
+
+	async restoreEmail(id: string): Promise<boolean> {
+		const index = this.emails.findIndex((e) => e.id === id);
+		if (index === -1) return false;
+		if (this.emails[index].folder === "trash") {
+			this.emails[index].folder = "inbox";
+			return true;
+		}
+		return false;
 	}
 
 	// ... within MockDatabase class ...
@@ -358,9 +377,4 @@ const ADDITIONAL_EMAILS: Email[] = [
 // We do this in constructor
 
 
-// Global Singleton to persist across hot reloads in dev
-const globalForDb = global as unknown as { mockDb_v2: MockDatabase };
-
-export const db = globalForDb.mockDb_v2 || new MockDatabase();
-
-if (process.env.NODE_ENV !== "production") globalForDb.mockDb_v2 = db;
+// End of mock-db.ts

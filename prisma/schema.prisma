@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String          @id @default(uuid())
+  name             String
+  email            String          @unique
+  password         String
+  twoFactorEnabled Boolean         @default(false)
+  profileImage     String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  
+  encryptionKeys   EncryptionKey[]
+  accounts         Account[]
+  sentEmails       Email[]         @relation("SentEmails")
+  receivedEmails   EmailRecipient[]
+}
+
+model EncryptionKey {
+  id          String   @id @default(uuid())
+  userId      String
+  name        String
+  publicKey   String   @db.Text
+  privateKey  String   @db.Text
+  fingerprint String
+  createdAt   DateTime @default(now())
+  isActive    Boolean  @default(true)
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id        String   @id @default(uuid())
+  userId    String
+  provider  String
+  email     String
+  connected Boolean  @default(true)
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Email {
+  id                   String           @id @default(uuid())
+  senderId             String
+  subject              String
+  body                 String           @db.Text
+  isEncrypted          Boolean          @default(false)
+  encryptionLevel      String?
+  timestamp            DateTime         @default(now())
+  folder               String           @default("inbox")
+  expiresAt            DateTime?
+  readReceipt          Boolean          @default(false)
+  passwordProtected    Boolean          @default(false)
+  passwordHint         String?
+  forwardRestricted    Boolean          @default(false)
+  autoDestroy          Boolean          @default(false)
+  autoDestroyAfterRead Boolean          @default(false)
+  
+  sender               User             @relation("SentEmails", fields: [senderId], references: [id], onDelete: Cascade)
+  recipients           EmailRecipient[]
+  attachments          Attachment[]
+  labels               EmailLabel[]
+}
+
+model EmailRecipient {
+  id        String   @id @default(uuid())
+  emailId   String
+  userId    String
+  read      Boolean  @default(false)
+  starred   Boolean  @default(false)
+  folder    String   @default("inbox")
+  
+  email     Email    @relation(fields: [emailId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Attachment {
+  id          String   @id @default(uuid())
+  emailId     String
+  name        String
+  type        String
+  size        Int
+  url         String
+  isEncrypted Boolean  @default(false)
+  
+  email       Email    @relation(fields: [emailId], references: [id], onDelete: Cascade)
+}
+
+model Label {
+  id          String       @id @default(uuid())
+  name        String
+  color       String
+  
+  emailLabels EmailLabel[]
+}
+
+model EmailLabel {
+  emailId String
+  labelId String
+  
+  email   Email @relation(fields: [emailId], references: [id], onDelete: Cascade)
+  label   Label @relation(fields: [labelId], references: [id], onDelete: Cascade)
+  
+  @@id([emailId, labelId])
+}

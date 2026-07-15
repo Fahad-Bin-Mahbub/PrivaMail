@@ -201,7 +201,7 @@ export function RegisterForm({
 								required
 								value={formData.name}
 								onChange={handleChange}
-								className={`appearance-none block w-full pl-10 pr-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+								className={`appearance-none block w-full pl-10 pr-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-brand-500 focus:border-brand-500 sm:text-sm ${
 									darkMode
 										? "border-gray-600 bg-gray-700 text-white"
 										: "border-gray-300 bg-white text-gray-900"
@@ -241,7 +241,7 @@ export function RegisterForm({
 								required
 								value={formData.email}
 								onChange={handleChange}
-								className={`appearance-none block w-full pl-10 pr-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+								className={`appearance-none block w-full pl-10 pr-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-brand-500 focus:border-brand-500 sm:text-sm ${
 									darkMode
 										? "border-gray-600 bg-gray-700 text-white"
 										: "border-gray-300 bg-white text-gray-900"
@@ -281,7 +281,7 @@ export function RegisterForm({
 								required
 								value={formData.password}
 								onChange={handleChange}
-								className={`appearance-none block w-full pl-10 pr-10 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+								className={`appearance-none block w-full pl-10 pr-10 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-brand-500 focus:border-brand-500 sm:text-sm ${
 									darkMode
 										? "border-gray-600 bg-gray-700 text-white"
 										: "border-gray-300 bg-white text-gray-900"
@@ -305,7 +305,7 @@ export function RegisterForm({
 
 						{/* Password strength indicator */}
 						{formData.password && (
-							<div className="mt-2">
+							<div className="mt-2 space-y-2">
 								<div className="flex items-center justify-between mb-1">
 									<div
 										className={`text-xs font-medium ${
@@ -333,6 +333,60 @@ export function RegisterForm({
 										)} rounded-full`}
 										style={{ width: `${(passwordStrength / 5) * 100}%` }}
 									></div>
+								</div>
+								
+								{/* Password Criteria Checklist */}
+								<div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-xs">
+									<div className="flex items-center">
+										{formData.password.length >= 8 ? (
+											<LucideIcons.CheckCircle2 className="h-4 w-4 text-green-500 mr-2 shrink-0" />
+										) : (
+											<LucideIcons.XCircle className="h-4 w-4 text-red-500 mr-2 shrink-0" />
+										)}
+										<span className={formData.password.length >= 8 ? "text-green-500 dark:text-green-400" : "text-red-500 dark:text-red-400"}>
+											Min. 8 characters
+										</span>
+									</div>
+									<div className="flex items-center">
+										{/[A-Z]/.test(formData.password) ? (
+											<LucideIcons.CheckCircle2 className="h-4 w-4 text-green-500 mr-2 shrink-0" />
+										) : (
+											<LucideIcons.XCircle className="h-4 w-4 text-red-500 mr-2 shrink-0" />
+										)}
+										<span className={/[A-Z]/.test(formData.password) ? "text-green-500 dark:text-green-400" : "text-red-500 dark:text-red-400"}>
+											Uppercase letter (A-Z)
+										</span>
+									</div>
+									<div className="flex items-center">
+										{/[a-z]/.test(formData.password) ? (
+											<LucideIcons.CheckCircle2 className="h-4 w-4 text-green-500 mr-2 shrink-0" />
+										) : (
+											<LucideIcons.XCircle className="h-4 w-4 text-red-500 mr-2 shrink-0" />
+										)}
+										<span className={/[a-z]/.test(formData.password) ? "text-green-500 dark:text-green-400" : "text-red-500 dark:text-red-400"}>
+											Lowercase letter (a-z)
+										</span>
+									</div>
+									<div className="flex items-center">
+										{/[0-9]/.test(formData.password) ? (
+											<LucideIcons.CheckCircle2 className="h-4 w-4 text-green-500 mr-2 shrink-0" />
+										) : (
+											<LucideIcons.XCircle className="h-4 w-4 text-red-500 mr-2 shrink-0" />
+										)}
+										<span className={/[0-9]/.test(formData.password) ? "text-green-500 dark:text-green-400" : "text-red-500 dark:text-red-400"}>
+											At least one number (0-9)
+										</span>
+									</div>
+									<div className="flex items-center sm:col-span-2">
+										{/[^A-Za-z0-9]/.test(formData.password) ? (
+											<LucideIcons.CheckCircle2 className="h-4 w-4 text-green-500 mr-2 shrink-0" />
+										) : (
+											<LucideIcons.XCircle className="h-4 w-4 text-red-500 mr-2 shrink-0" />
+										)}
+										<span className={/[^A-Za-z0-9]/.test(formData.password) ? "text-green-500 dark:text-green-400" : "text-red-500 dark:text-red-400"}>
+											Special character (e.g. !@#$%)
+										</span>
+									</div>
 								</div>
 							</div>
 						)}
@@ -369,10 +423,10 @@ export function RegisterForm({
 								required
 								value={formData.confirmPassword}
 								onChange={handleChange}
-								className={`appearance-none block w-full pl-10 pr-10 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-									darkMode
-										? "border-gray-600 bg-gray-700 text-white"
-										: "border-gray-300 bg-white text-gray-900"
+								className={`appearance-none block w-full pl-10 pr-10 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm ${
+									formData.confirmPassword.length > 0 && formData.confirmPassword !== formData.password
+										? "border-red-500 focus:border-red-500 focus:ring-red-500 bg-red-50/10 dark:bg-red-900/10"
+										: "focus:ring-brand-500 focus:border-brand-500 " + (darkMode ? "border-gray-600 bg-gray-700 text-white" : "border-gray-300 bg-white text-gray-900")
 								}`}
 								placeholder="••••••••"
 							/>
@@ -390,13 +444,13 @@ export function RegisterForm({
 								</button>
 							</div>
 						</div>
-						{errors.confirmPassword && (
+						{(errors.confirmPassword || (formData.confirmPassword.length > 0 && formData.confirmPassword !== formData.password)) && (
 							<p
 								className={`mt-1 text-sm ${
 									darkMode ? "text-red-400" : "text-red-600"
 								}`}
 							>
-								{errors.confirmPassword}
+								Passwords do not match
 							</p>
 						)}
 					</div>
@@ -409,7 +463,7 @@ export function RegisterForm({
 						type="checkbox"
 						checked={formData.agreeToTerms}
 						onChange={handleChange}
-						className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 rounded ${
+						className={`h-4 w-4 text-brand-600 focus:ring-brand-500 rounded ${
 							darkMode ? "border-gray-700" : "border-gray-300"
 						}`}
 					/>
@@ -424,8 +478,8 @@ export function RegisterForm({
 							href="#"
 							className={`font-medium transition-colors duration-200 ${
 								darkMode
-									? "text-indigo-400 hover:text-indigo-300"
-									: "text-indigo-600 hover:text-indigo-500"
+									? "text-brand-400 hover:text-brand-300"
+									: "text-brand-600 hover:text-brand-500"
 							}`}
 						>
 							Terms of Service
@@ -435,8 +489,8 @@ export function RegisterForm({
 							href="#"
 							className={`font-medium transition-colors duration-200 ${
 								darkMode
-									? "text-indigo-400 hover:text-indigo-300"
-									: "text-indigo-600 hover:text-indigo-500"
+									? "text-brand-400 hover:text-brand-300"
+									: "text-brand-600 hover:text-brand-500"
 							}`}
 						>
 							Privacy Policy
@@ -457,7 +511,7 @@ export function RegisterForm({
 					<button
 						type="submit"
 						disabled={isLoading}
-						className={`group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 ${
+						className={`group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all duration-200 ${
 							isLoading ? "opacity-70 cursor-not-allowed" : ""
 						}`}
 					>

@@ -9,7 +9,7 @@ interface AuthContextType {
 	user: User | null;
 	isLoading: boolean;
 	isLoggedIn: boolean;
-	login: (user: User) => void;
+	login: (user: User, redirectPath?: string | false) => void;
 	logout: () => void;
 	updateUser: (updates: Partial<User>) => void;
 }
@@ -42,11 +42,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		initAuth();
 	}, []);
 
-	const login = (userData: User) => {
+	const login = (userData: User, redirectPath: string | false = "/dashboard") => {
 		setUser(userData);
 		localStorage.setItem("user", JSON.stringify(userData));
 		toast.success(`Welcome back, ${userData.name}!`);
-		router.push("/dashboard");
+		if (redirectPath !== false) {
+			router.push(redirectPath);
+		}
 	};
 
 	const logout = async () => {

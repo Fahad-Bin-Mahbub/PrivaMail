@@ -7,8 +7,10 @@ import { Sidebar } from "@/components/dashboard/sidebar";
 import { ComposeModal } from "@/components/dashboard/compose-modal";
 import { useAuth } from "@/components/providers/auth-provider";
 import { useTheme } from "@/components/providers/theme-provider";
-import { db } from "@/lib/mock-db"; // Import db
+import { db } from "@/lib/db"; // Import db
 import { Label } from "@/lib/types";
+import { FeatureTour } from "@/components/dashboard/feature-tour";
+import { KeyboardShortcuts } from "@/components/dashboard/keyboard-shortcuts";
 
 // Inner component that uses useSearchParams
 function ProtectedLayoutContent({ children }: { children: React.ReactNode }) {
@@ -18,7 +20,8 @@ function ProtectedLayoutContent({ children }: { children: React.ReactNode }) {
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 	const showCompose = searchParams.get("compose") === "true";
-	const [searchTerm, setSearchTerm] = useState("");
+	const initialSearch = searchParams.get("q") || "";
+	const [searchTerm, setSearchTerm] = useState(initialSearch);
     const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>({});
 	const [notifications, setNotifications] = useState([
 		{
@@ -80,6 +83,34 @@ function ProtectedLayoutContent({ children }: { children: React.ReactNode }) {
 	useEffect(() => {
 		setShowMobileMenu(false);
 	}, [searchParams]);
+
+    // Sync search term to URL
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            const params = new URLSearchParams(searchParams.toString());
+            if (searchTerm) {
+                params.set("q", searchTerm);
+            } else {
+                params.delete("q");
+            }
+            // avoid pushing if identical to avoid infinite loops, but here it's fine
+            if (searchParams.get("q") !== searchTerm && (searchTerm || searchParams.has("q"))) {
+                router.push(`${pathname}?${params.toString()}`);
+            }
+        }, 300);
+        return () => clearTimeout(timeout);
+    }, [searchTerm, pathname, router]);
+
+	// Listen for custom open-compose event
+	useEffect(() => {
+		const handleOpenCompose = () => {
+			const params = new URLSearchParams(searchParams.toString());
+			params.set("compose", "true");
+			router.push(`${pathname}?${params.toString()}`);
+		};
+		window.addEventListener('open-compose', handleOpenCompose);
+		return () => window.removeEventListener('open-compose', handleOpenCompose);
+	}, [searchParams, pathname, router]);
 
 	if (!isLoggedIn) {
 		return null; // Don't render anything while redirecting
@@ -180,7 +211,7 @@ function ProtectedLayoutContent({ children }: { children: React.ReactNode }) {
 				)}
 
 				{/* Main Content */}
-				<main className="flex-1 flex flex-col overflow-hidden relative z-0">
+				<main className="flex-1 flex flex-col overflow-y-auto relative z-0">
 					{children}
 				</main>
 			</div>
@@ -192,6 +223,9 @@ function ProtectedLayoutContent({ children }: { children: React.ReactNode }) {
 					onClose={handleCloseCompose}
 				/>
 			)}
+			
+			<FeatureTour />
+			<KeyboardShortcuts />
 		</div>
 	);
 }

@@ -104,7 +104,7 @@ export function DeleteAccountModal({
 							<button
 								type="button"
 								onClick={onClose}
-								className={`mt-3 sm:mt-0 w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+								className={`mt-3 sm:mt-0 w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 									darkMode
 										? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 										: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"

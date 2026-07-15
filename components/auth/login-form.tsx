@@ -83,13 +83,13 @@ export function LoginForm({
 			<div className="text-center">
 				<div className="flex justify-center mb-6">
 					<div className="relative">
-						<div className="h-16 w-16 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-2xl flex items-center justify-center text-white shadow-2xl transform hover:scale-105 transition-transform duration-300">
+						<div className="h-16 w-16 bg-gradient-to-br from-brand-600 via-accent-600 to-accent-600 rounded-2xl flex items-center justify-center text-white shadow-2xl transform hover:scale-105 transition-transform duration-300">
 							<LucideIcons.Shield className="h-8 w-8" />
 						</div>
-						<div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
+						<div className="absolute inset-0 bg-gradient-to-br from-brand-600 via-accent-600 to-accent-600 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
 					</div>
 				</div>
-				<h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+				<h2 className="text-3xl font-bold bg-gradient-to-r from-brand-600 via-accent-600 to-accent-600 bg-clip-text text-transparent">
 					Welcome Back
 				</h2>
 				<p
@@ -102,8 +102,8 @@ export function LoginForm({
 						href="/register"
 						className={`font-medium transition-colors duration-200 ${
 							darkMode
-								? "text-indigo-400 hover:text-indigo-300"
-								: "text-indigo-600 hover:text-indigo-500"
+								? "text-brand-400 hover:text-brand-300"
+								: "text-brand-600 hover:text-brand-500"
 						}`}
 					>
 						create a new account
@@ -195,7 +195,7 @@ export function LoginForm({
 							<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 								<LucideIcons.Mail
 									className={`h-5 w-5 transition-colors ${
-										email ? "text-indigo-500" : "text-gray-400"
+										email ? "text-brand-500" : "text-gray-400"
 									}`}
 								/>
 							</div>
@@ -207,7 +207,7 @@ export function LoginForm({
 								required
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
-								className={`appearance-none block w-full pl-10 pr-3 py-3 border rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 sm:text-sm ${
+								className={`appearance-none block w-full pl-10 pr-3 py-3 border rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-300 sm:text-sm ${
 									darkMode
 										? "border-gray-600 bg-gray-700/50 text-white focus:bg-gray-700"
 										: "border-gray-300 bg-white/50 text-gray-900 focus:bg-white"
@@ -230,7 +230,7 @@ export function LoginForm({
 							<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 								<LucideIcons.KeyRound
 									className={`h-5 w-5 transition-colors ${
-										password ? "text-indigo-500" : "text-gray-400"
+										password ? "text-brand-500" : "text-gray-400"
 									}`}
 								/>
 							</div>
@@ -242,7 +242,7 @@ export function LoginForm({
 								required
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
-								className={`appearance-none block w-full pl-10 pr-12 py-3 border rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 sm:text-sm ${
+								className={`appearance-none block w-full pl-10 pr-12 py-3 border rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-300 sm:text-sm ${
 									darkMode
 										? "border-gray-600 bg-gray-700/50 text-white focus:bg-gray-700"
 										: "border-gray-300 bg-white/50 text-gray-900 focus:bg-white"
@@ -299,7 +299,7 @@ export function LoginForm({
 							type="checkbox"
 							checked={rememberMe}
 							onChange={(e) => setRememberMe(e.target.checked)}
-							className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded transition-colors duration-200"
+							className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded transition-colors duration-200"
 						/>
 						<label
 							htmlFor="remember-me"
@@ -316,8 +316,8 @@ export function LoginForm({
 							href="#"
 							className={`font-medium transition-colors duration-200 hover:underline ${
 								darkMode
-									? "text-indigo-400 hover:text-indigo-300"
-									: "text-indigo-600 hover:text-indigo-500"
+									? "text-brand-400 hover:text-brand-300"
+									: "text-brand-600 hover:text-brand-500"
 							}`}
 						>
 							Forgot password?
@@ -329,7 +329,7 @@ export function LoginForm({
 					<button
 						type="submit"
 						disabled={disableAll || isLoadingComp}
-						className={`group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl ${
+						className={`group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-gradient-to-r from-brand-600 via-accent-600 to-accent-600 hover:from-brand-700 hover:via-accent-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl ${
 							disableAll || isLoadingComp ? "opacity-70 cursor-not-allowed" : ""
 						}`}
 					>
@@ -366,6 +366,20 @@ export function LoginForm({
 					</button>
 				</div>
 			</form>
+
+			<div className={`text-center mt-6 text-sm ${darkMode ? "text-gray-400" : "text-gray-600"}`}>
+				Don't have an account?{" "}
+				<Link
+					href="/register"
+					className={`font-medium transition-colors duration-200 hover:underline ${
+						darkMode
+							? "text-brand-400 hover:text-brand-300"
+							: "text-brand-600 hover:text-brand-500"
+					}`}
+				>
+					Register here
+				</Link>
+			</div>
 		</div>
 	);
 }

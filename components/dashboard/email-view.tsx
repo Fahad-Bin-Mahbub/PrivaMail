@@ -18,6 +18,7 @@ import { motion, AnimatePresence as FramerAnimatePresence } from "framer-motion"
 import * as LucideIcons from "lucide-react";
 import toast from "react-hot-toast";
 import { User, Email } from "@/lib/types";
+import { db } from "@/lib/db";
 
 interface EmailViewProps {
 	user: User | null;
@@ -30,6 +31,7 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 	const [email, setEmail] = useState<Email | null>(null);
 	const [isDecrypted, setIsDecrypted] = useState(false);
 	const [password, setPassword] = useState("");
+	const [showDecryptPassword, setShowDecryptPassword] = useState(false);
 	const [showPasswordModal, setShowPasswordModal] = useState(false);
 	const [isLoadingEmail, setIsLoadingEmail] = useState(true);
 	const [showEncryptedContent, setShowEncryptedContent] = useState(false);
@@ -39,6 +41,10 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 	const [showForwardBox, setShowForwardBox] = useState(false);
 	const [forwardRecipient, setForwardRecipient] = useState("");
 	const [forwardMessage, setForwardMessage] = useState("");
+	const [encryptReply, setEncryptReply] = useState(true);
+	const [replyReadReceipt, setReplyReadReceipt] = useState(false);
+	const [encryptForward, setEncryptForward] = useState(true);
+	const [includeAttachments, setIncludeAttachments] = useState(true);
 
 	// Animation for email view (using react-spring)
 	const emailViewAnimation = useReactSpring({
@@ -50,63 +56,37 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 	// Fetch email data
 	useEffect(() => {
 		// Simulate API call to fetch email
-		setTimeout(() => {
-			// This is mock data, in a real app, you'd fetch from an API
-            // In a real refactor, we should probably fetch from `db` in `mock-db.ts`
-            // But preserving the hardcoded mock data for now to ensure we match the implementation.
-            // Actually, querying the `db` would be better if we seeded it correctly.
-            // Let's try to fetch from `db` first, if not found, use fallback?
-            // The original code had hardcoded mockEmail inside the useEffect.
+		setTimeout(async () => {
+            const foundEmail = await db.getEmail(id as string);
             
-            // I will use the hardcoded email from the original file to guarantee fidelity as requested.
-			const mockEmail: Email = {
-				id: id as string || "1",
-				from: "john.doe@example.com",
-				to: [user?.email || "you@example.com"],
-				subject: "Welcome to PrivaMail!",
-				body: "Thank you for joining PrivaMail. We are excited to have you on board. This is a secure platform for all your email communication needs.\n\nWith PrivaMail, you can send end-to-end encrypted emails to anyone, even if they don't use our service. Your data is protected with military-grade encryption, ensuring that only you and your intended recipients can read your messages.\n\nSome key features include:\n- End-to-end encryption\n- Self-destructing messages\n- Password protection\n- Encrypted attachments\n\nIf you have any questions, feel free to reply to this email or contact our support team.\n\nBest regards,\nThe PrivaMail Team",
-				attachments: [
-					{
-						id: "att1",
-						name: "getting-started.pdf",
-						type: "application/pdf",
-						size: 2500000,
-						url: "#",
-						isEncrypted: true,
-					},
-				],
-				isEncrypted: true,
-				encryptionLevel: "high",
-				timestamp: new Date(Date.now() - 3600000), // 1 hour ago
-				read: true,
-				starred: true,
-				folder: "inbox",
-				expiresAt: new Date(Date.now() + 604800000), // 7 days from now
-				readReceipt: true,
-				passwordProtected: true,
-				passwordHint: "The name of our service (lowercase)",
-				labels: ["2"],
-			};
+			if (foundEmail) {
+                if (!foundEmail.read) {
+                    await db.updateEmail(id as string, { read: true });
+                    foundEmail.read = true;
+                }
+				setEmail(foundEmail);
+				setIsLoadingEmail(false);
 
-			setEmail(mockEmail);
-			setIsLoadingEmail(false);
+				// If email is password protected, show password modal
+				if (foundEmail.passwordProtected) {
+					setShowPasswordModal(true);
+				} else {
+					setIsDecrypted(true);
+				}
 
-			// If email is password protected, show password modal
-			if (mockEmail.passwordProtected) {
-				setShowPasswordModal(true);
+				// Prepare forward message
+				setForwardMessage(
+					`\n\n---------- Forwarded message ----------\nFrom: ${
+						foundEmail.from
+					}\nDate: ${foundEmail.timestamp.toLocaleString()}\nSubject: ${
+						foundEmail.subject
+					}\nTo: ${foundEmail.to.join(", ")}\n\n${foundEmail.body}`
+				);
 			} else {
-				setIsDecrypted(true);
+				// Handle email not found
+				setIsLoadingEmail(false);
 			}
-
-			// Prepare forward message
-			setForwardMessage(
-				`\n\n---------- Forwarded message ----------\nFrom: ${
-					mockEmail.from
-				}\nDate: ${mockEmail.timestamp.toLocaleString()}\nSubject: ${
-					mockEmail.subject
-				}\nTo: ${mockEmail.to.join(", ")}\n\n${mockEmail.body}`
-			);
-		}, 1000);
+		}, 600);
 	}, [id, user]);
 
 	// Handle password submission
@@ -203,7 +183,7 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 
 	return (
 		<div
-			className={`min-h-screen flex flex-col ${
+			className={`flex-1 flex flex-col ${
 				darkMode ? "bg-gray-900" : "bg-gray-50"
 			}`}
 		>
@@ -213,7 +193,9 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 					<div className="flex items-center">
 						<button
 							onClick={() => router.push("/dashboard")}
-							className={`inline-flex items-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition-colors duration-200 ${
+							aria-label="Back to inbox"
+							title="Back to inbox"
+							className={`inline-flex items-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-500 transition-colors duration-200 ${
 								darkMode
 									? "text-gray-400 hover:text-gray-300 hover:bg-gray-700"
 									: "text-gray-400 hover:text-gray-500 hover:bg-gray-100"
@@ -228,7 +210,7 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 						>
 							<LucideIcons.Mail
 								className={`mr-2 h-5 w-5 ${
-									darkMode ? "text-indigo-400" : "text-indigo-600"
+									darkMode ? "text-brand-400" : "text-brand-600"
 								}`}
 							/>
 							View Email
@@ -237,7 +219,7 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 					<div className="flex items-center space-x-2">
 						<button
 							onClick={() => router.push("/dashboard")}
-							className={`inline-flex items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+							className={`inline-flex items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 								darkMode
 									? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 									: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -251,7 +233,7 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 			</header>
 
 			{/* Email content */}
-			<main className="flex-1 py-6">
+			<main className="flex-1 py-6 pb-12">
 				<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 					{isLoadingEmail ? (
 						<div
@@ -260,7 +242,7 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 							}`}
 						>
 							<div className="text-center">
-								<div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600 mb-4"></div>
+								<div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-600 mb-4"></div>
 								<h2
 									className={`text-xl font-medium ${
 										darkMode ? "text-white" : "text-gray-900"
@@ -302,6 +284,8 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 										</h1>
 										<div className="flex space-x-2">
 											<button
+												aria-label={email.starred ? "Remove star" : "Add star"}
+												title={email.starred ? "Remove star" : "Add star"}
 												className={`transition-colors duration-200 ${
 													darkMode
 														? "text-gray-400 hover:text-gray-300"
@@ -315,6 +299,8 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 												/>
 											</button>
 											<button
+												aria-label="More options"
+												title="More options"
 												className={`transition-colors duration-200 ${
 													darkMode
 														? "text-gray-400 hover:text-gray-300"
@@ -328,7 +314,7 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 
 									<div className="mt-4 flex flex-col sm:flex-row sm:items-start">
 										<div className="flex-shrink-0 mb-3 sm:mb-0">
-											<div className="h-12 w-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white uppercase shadow-sm">
+											<div className="h-12 w-12 rounded-full bg-gradient-to-br from-brand-500 to-accent-600 flex items-center justify-center text-white uppercase shadow-sm">
 												{email.from.split("@")[0].charAt(0)}
 											</div>
 										</div>
@@ -391,27 +377,27 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 												}`}
 											>
 												<LucideIcons.Lock className="mr-1 h-3 w-3" />
-												{isDecrypted ? "Decrypted" : "Encrypted"}
+												{isDecrypted ? "🔓 Unlocked" : "🔒 Locked"}
 											</span>
 										)}
 										{email.encryptionLevel === "high" && (
 											<span
 												className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
 													darkMode
-														? "bg-indigo-900 text-indigo-200"
-														: "bg-indigo-100 text-indigo-800"
+														? "bg-brand-900 text-brand-200"
+														: "bg-brand-100 text-brand-800"
 												}`}
 											>
 												<LucideIcons.Shield className="mr-1 h-3 w-3" />
-												High Encryption
+												Maximum Security
 											</span>
 										)}
 										{email.passwordProtected && (
 											<span
 												className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
 													darkMode
-														? "bg-purple-900 text-purple-200"
-														: "bg-purple-100 text-purple-800"
+														? "bg-accent-900 text-accent-200"
+														: "bg-accent-100 text-accent-800"
 												}`}
 											>
 												<LucideIcons.KeySquare className="mr-1 h-3 w-3" />
@@ -437,6 +423,7 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 														? "bg-amber-900 text-amber-200"
 														: "bg-amber-100 text-amber-800"
 												}`}
+												title="The sender will be notified that you opened this email"
 											>
 												<LucideIcons.Eye className="mr-1 h-3 w-3" />
 												Read Receipt
@@ -469,7 +456,7 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 													onClick={() =>
 														setShowEncryptedContent(!showEncryptedContent)
 													}
-													className={`inline-flex items-center px-3 py-1.5 border shadow-sm text-xs font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+													className={`inline-flex items-center px-3 py-1.5 border shadow-sm text-xs font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 														darkMode
 															? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 															: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -478,12 +465,12 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 													{showEncryptedContent ? (
 														<>
 															<LucideIcons.EyeOff className="mr-1.5 h-4 w-4" />
-															Hide Encrypted Version
+															Hide scrambled view
 														</>
 													) : (
 														<>
 															<LucideIcons.Eye className="mr-1.5 h-4 w-4" />
-															View Encrypted Version
+															See how outsiders see this email
 														</>
 													)}
 												</button>
@@ -510,10 +497,13 @@ export function EmailView({ user, darkMode }: EmailViewProps) {
 															}`}
 														>
 															{email.encryptionLevel === "high"
-																? "AES-256 + ChaCha20"
-																: "AES-256"}
+																? "Maximum Security Encryption"
+																: "Standard Encryption"}
 														</span>
 													</div>
+													<p className={`text-xs mb-2 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+														This scrambled text is all that anyone without permission can see:
+													</p>
 													<pre
 														className={`font-mono text-xs whitespace-pre-wrap break-all overflow-auto max-h-60 p-3 rounded ${
 															darkMode
@@ -567,14 +557,14 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 															>
 																<div
 																	className={`flex-shrink-0 h-10 w-10 flex items-center justify-center rounded ${
-																		darkMode ? "bg-indigo-900" : "bg-indigo-100"
+																		darkMode ? "bg-brand-900" : "bg-brand-100"
 																	}`}
 																>
 																	<LucideIcons.FileText
 																		className={`h-6 w-6 ${
 																			darkMode
-																				? "text-indigo-400"
-																				: "text-indigo-600"
+																				? "text-brand-400"
+																				: "text-brand-600"
 																		}`}
 																	/>
 																</div>
@@ -616,7 +606,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 																			<button
 																				onClick={() => handleDownload()}
 																				disabled={isDownloading}
-																				className={`inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+																				className={`inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 																					isDownloading
 																						? "opacity-70 cursor-not-allowed"
 																						: ""
@@ -684,7 +674,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 																onChange={(e) =>
 																	setReplyMessage(e.target.value)
 																}
-																className={`shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md ${
+																className={`shadow-sm p-2 focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border rounded-md ${
 																	darkMode
 																		? "border-gray-600 bg-gray-700 text-white"
 																		: "border-gray-300 bg-white text-gray-900"
@@ -699,12 +689,13 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 																		id="reply-encrypted"
 																		name="reply-encrypted"
 																		type="checkbox"
-																		className={`focus:ring-indigo-500 h-4 w-4 text-indigo-600 rounded ${
+																		className={`focus:ring-brand-500 h-4 w-4 text-brand-600 rounded ${
 																			darkMode
 																				? "border-gray-600"
 																				: "border-gray-300"
 																		}`}
-																		checked
+																		checked={encryptReply}
+																		onChange={(e) => setEncryptReply(e.target.checked)}
 																	/>
 																	<label
 																		htmlFor="reply-encrypted"
@@ -722,11 +713,13 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 																		id="reply-receipt"
 																		name="reply-receipt"
 																		type="checkbox"
-																		className={`focus:ring-indigo-500 h-4 w-4 text-indigo-600 rounded ${
+																		className={`focus:ring-brand-500 h-4 w-4 text-brand-600 rounded ${
 																			darkMode
 																				? "border-gray-600"
 																				: "border-gray-300"
 																		}`}
+																		checked={replyReadReceipt}
+																		onChange={(e) => setReplyReadReceipt(e.target.checked)}
 																	/>
 																	<label
 																		htmlFor="reply-receipt"
@@ -744,7 +737,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 																<button
 																	type="button"
 																	onClick={() => setShowReplyBox(false)}
-																	className={`inline-flex items-center px-3 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+																	className={`inline-flex items-center px-3 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 																		darkMode
 																			? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 																			: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -754,7 +747,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 																</button>
 																<button
 																	type="submit"
-																	className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+																	className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200"
 																>
 																	<LucideIcons.Send className="mr-1.5 h-4 w-4" />
 																	Send Reply
@@ -797,7 +790,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 																	onChange={(e) =>
 																		setForwardRecipient(e.target.value)
 																	}
-																	className={`shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md ${
+																	className={`shadow-sm p-2 focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border rounded-md ${
 																		darkMode
 																			? "border-gray-600 bg-gray-700 text-white"
 																			: "border-gray-300 bg-white text-gray-900"
@@ -823,7 +816,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 																	onChange={(e) =>
 																		setForwardMessage(e.target.value)
 																	}
-																	className={`shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md font-mono ${
+																	className={`shadow-sm p-2 focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border rounded-md font-mono ${
 																		darkMode
 																			? "border-gray-600 bg-gray-700 text-white"
 																			: "border-gray-300 bg-white text-gray-900"
@@ -838,12 +831,13 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 																		id="forward-encrypted"
 																		name="forward-encrypted"
 																		type="checkbox"
-																		className={`focus:ring-indigo-500 h-4 w-4 text-indigo-600 rounded ${
+																		className={`focus:ring-brand-500 h-4 w-4 text-brand-600 rounded ${
 																			darkMode
 																				? "border-gray-600"
 																				: "border-gray-300"
 																		}`}
-																		checked
+																		checked={encryptForward}
+																		onChange={(e) => setEncryptForward(e.target.checked)}
 																	/>
 																	<label
 																		htmlFor="forward-encrypted"
@@ -861,12 +855,13 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 																		id="forward-attachments"
 																		name="forward-attachments"
 																		type="checkbox"
-																		className={`focus:ring-indigo-500 h-4 w-4 text-indigo-600 rounded ${
+																		className={`focus:ring-brand-500 h-4 w-4 text-brand-600 rounded ${
 																			darkMode
 																				? "border-gray-600"
 																				: "border-gray-300"
 																		}`}
-																		checked
+																		checked={includeAttachments}
+																		onChange={(e) => setIncludeAttachments(e.target.checked)}
 																	/>
 																	<label
 																		htmlFor="forward-attachments"
@@ -884,7 +879,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 																<button
 																	type="button"
 																	onClick={() => setShowForwardBox(false)}
-																	className={`inline-flex items-center px-3 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+																	className={`inline-flex items-center px-3 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 																		darkMode
 																			? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 																			: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -894,7 +889,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 																</button>
 																<button
 																	type="submit"
-																	className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+																	className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200"
 																>
 																	<LucideIcons.Send className="mr-1.5 h-4 w-4" />
 																	Forward
@@ -911,13 +906,13 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 											<div
 												className={`rounded-full p-6 inline-flex items-center justify-center mb-4 ${
 													darkMode
-														? "bg-indigo-900 bg-opacity-20"
-														: "bg-indigo-100"
+														? "bg-brand-900 bg-opacity-20"
+														: "bg-brand-100"
 												}`}
 											>
 												<LucideIcons.Lock
 													className={`h-12 w-12 ${
-														darkMode ? "text-indigo-400" : "text-indigo-600"
+														darkMode ? "text-brand-400" : "text-brand-600"
 													}`}
 												/>
 											</div>
@@ -939,7 +934,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 											<div className="mt-6">
 												<button
 													onClick={() => setShowPasswordModal(true)}
-													className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 transform hover:-translate-y-0.5"
+													className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-lg text-white bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all duration-200 transform hover:-translate-y-0.5"
 												>
 													<LucideIcons.KeySquare className="mr-2 h-5 w-5" />
 													Enter Password
@@ -960,7 +955,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 									<div>
 										<button
 											onClick={() => router.push("/dashboard")}
-											className={`inline-flex items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+											className={`inline-flex items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 												darkMode
 													? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 													: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -981,7 +976,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 														setShowForwardBox(false);
 													}
 												}}
-												className={`inline-flex items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+												className={`inline-flex items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 													darkMode
 														? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 														: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -999,7 +994,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 														setShowReplyBox(false);
 													}
 												}}
-												className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+												className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200"
 											>
 												<LucideIcons.Forward className="mr-1.5 h-5 w-5" />
 												Forward
@@ -1035,7 +1030,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 								<div className="mt-6">
 									<button
 										onClick={() => router.push("/dashboard")}
-										className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+										className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200"
 									>
 										<LucideIcons.Inbox className="mr-1.5 h-5 w-5" />
 										Back to Inbox
@@ -1067,12 +1062,12 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 							<div className="text-center">
 								<div
 									className={`mx-auto flex items-center justify-center h-16 w-16 rounded-full ${
-										darkMode ? "bg-indigo-900" : "bg-indigo-100"
+										darkMode ? "bg-brand-900" : "bg-brand-100"
 									}`}
 								>
 									<LucideIcons.KeySquare
 										className={`h-10 w-10 ${
-											darkMode ? "text-indigo-400" : "text-indigo-600"
+											darkMode ? "text-brand-400" : "text-brand-600"
 										}`}
 									/>
 								</div>
@@ -1133,30 +1128,41 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 									>
 										Password
 									</label>
-									<div className="mt-1 relative rounded-md shadow-sm">
+									<div className="relative mt-1">
 										<input
-											type="password"
-											id="password"
+											type={showDecryptPassword ? "text" : "password"}
 											value={password}
 											onChange={(e) => setPassword(e.target.value)}
-											className={`shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md pr-10 ${
+											placeholder="Enter password to decrypt"
+											className={`w-full px-4 py-3 border rounded-lg pr-12 ${
 												darkMode
-													? "border-gray-600 bg-gray-700 text-white"
-													: "border-gray-300 bg-white text-gray-900"
-											}`}
-											placeholder="Enter password"
+													? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+													: "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+											} focus:ring-2 focus:ring-brand-500 focus:border-brand-500`}
 											autoFocus
 										/>
-										<div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-											<LucideIcons.KeySquare className="h-5 w-5 text-gray-400" />
-										</div>
+										<button
+											type="button"
+											onClick={() => setShowDecryptPassword(!showDecryptPassword)}
+											className={`absolute inset-y-0 right-0 pr-3 flex items-center ${
+												darkMode ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-gray-700"
+											}`}
+										>
+											{showDecryptPassword ? (
+												<LucideIcons.EyeOff className="h-5 w-5" />
+											) : (
+												<LucideIcons.Eye className="h-5 w-5" />
+											)}
+										</button>
 									</div>
 								</div>
 								<div className="mt-6 flex justify-end space-x-3">
 									<button
 										type="button"
-										onClick={() => router.push("/dashboard")}
-										className={`inline-flex items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+										onClick={() => {
+											setShowPasswordModal(false);
+										}}
+										className={`inline-flex items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 											darkMode
 												? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 												: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -1166,7 +1172,7 @@ PzX5WqSrG7IkMlO2NeQfJhCaB8A4tB9wZ2EpQmFs8K7Lx1Dj3H6Y9o0vRnTbUcVd
 									</button>
 									<button
 										type="submit"
-										className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200"
+										className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all duration-200"
 									>
 										<LucideIcons.Unlock className="mr-1.5 h-5 w-5" />
 										Decrypt Message

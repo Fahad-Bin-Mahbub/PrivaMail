@@ -12,6 +12,8 @@ import { User } from "@/lib/types";
 import { RegisterForm } from "@/components/auth/register-form";
 import { EmailConnect } from "@/components/auth/email-connect";
 import { SocialLoginModal } from "@/components/auth/social-login-modal";
+import { AdvancedSecurityStep } from "@/components/onboarding/advanced-security-step";
+import { EncryptionKeysStep } from "@/components/onboarding/encryption-keys-step";
 
 export default function RegisterPage() {
 	const { darkMode } = useTheme();
@@ -25,6 +27,14 @@ export default function RegisterPage() {
 		"google" | "facebook" | null
 	>(null);
 	const [socialStep, setSocialStep] = useState(0);
+
+	const TOTAL_STEPS = 4;
+	const stepTitles = [
+		"Create Account",
+		"Connect Email",
+		"Advanced Security",
+		"Keys & Backup"
+	];
 
 	// Spring animation for form
 	const formAnimation = useSpring({
@@ -106,8 +116,8 @@ export default function RegisterPage() {
 				}!`
 			);
 			setShowSocialModal(false);
-			login(user);
-			router.push("/dashboard");
+			login(user, false);
+			setStep(2); // Go to step 2 instead of dashboard
 		}, 3500);
 	};
 
@@ -142,14 +152,7 @@ export default function RegisterPage() {
 				)}&background=6366f1&color=fff`,
 			};
 
-			// We don't login yet, we move to step 2
-			// But wait, the original code had login(user) BEFORE step 2?
-			// Checking original code:
-			// onLogin(user); setStep(2);
-			// Yes, it logs in the user immediately, then asks to connect email.
-			// But if we navigate to /security-setup after step 2, we need the user to be logged in.
-
-			login(user);
+			login(user, false);
 			toast.success("Account created successfully!");
 			setStep(2);
 		} catch (error) {
@@ -164,7 +167,6 @@ export default function RegisterPage() {
 	) => {
 		setIsLoading(true);
 
-		// Show provider-specific message
 		const providerNames = {
 			gmail: "Google",
 			outlook: "Microsoft",
@@ -174,14 +176,16 @@ export default function RegisterPage() {
 
 		toast.loading(`Connecting to ${providerNames[provider]}...`);
 
-		// Simulate connection
 		setTimeout(() => {
 			toast.dismiss();
 			toast.success(`Connected to ${providerNames[provider]} successfully!`);
 			setIsLoading(false);
-			// After connecting, go to security setup
-			router.push("/security-setup");
+			setStep(3);
 		}, 1500);
+	};
+
+	const handleFinalComplete = () => {
+		router.push("/dashboard");
 	};
 
 	return (
@@ -195,8 +199,8 @@ export default function RegisterPage() {
 					href="/"
 					className={`flex items-center transition-colors duration-200 ${
 						darkMode
-							? "text-gray-400 hover:text-indigo-400"
-							: "text-gray-500 hover:text-indigo-600"
+							? "text-gray-400 hover:text-brand-400"
+							: "text-gray-500 hover:text-brand-600"
 					}`}
 				>
 					<LucideIcons.ArrowLeft className="h-5 w-5 mr-1" />
@@ -206,53 +210,107 @@ export default function RegisterPage() {
 
 			<animated.div
 				style={formAnimation}
-				className={`max-w-md w-full space-y-8 p-10 rounded-xl shadow-xl ${
+				className={`max-w-lg w-full space-y-8 p-10 rounded-xl shadow-xl ${
 					darkMode ? "bg-gray-800" : "bg-white"
 				}`}
 			>
-				{step === 1 ? (
-					<>
-						<div>
-							<div className="flex justify-center">
-								<div className="h-14 w-14 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center text-white shadow-lg">
-									<LucideIcons.UserPlus className="h-8 w-8" />
-								</div>
+				{/* Progress Indicator */}
+				<div className="flex items-center justify-between w-full mb-8 relative">
+					{stepTitles.map((title, index) => (
+						<div key={index} className={`flex items-center ${index < stepTitles.length - 1 ? 'flex-1' : ''}`}>
+							<div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold 
+								${index + 1 < step ? 'bg-green-500 text-white' : 
+								index + 1 === step ? 'bg-brand-600 text-white' : 
+								darkMode ? 'bg-gray-700 text-gray-400' : 'bg-gray-200 text-gray-500'}`}>
+								{index + 1 < step ? '✓' : index + 1}
 							</div>
-							<h2
-								className={`mt-6 text-center text-3xl font-extrabold ${
-									darkMode ? "text-white" : "text-gray-900"
-								}`}
-							>
-								Create your account
-							</h2>
-							<p
-								className={`mt-2 text-center text-sm ${
-									darkMode ? "text-gray-400" : "text-gray-600"
-								}`}
-							>
-								Already have an account?{" "}
-								<Link
-									href="/login"
-									className={`font-medium transition-colors duration-200 ${
-										darkMode
-											? "text-indigo-400 hover:text-indigo-300"
-											: "text-indigo-600 hover:text-indigo-500"
-									}`}
-								>
-									Sign in
-								</Link>
-							</p>
+							<span className={`ml-2 text-xs truncate ${darkMode ? 'text-gray-300' : 'text-gray-600'} ${index + 1 === step ? 'hidden sm:block' : 'hidden'}`}>{title}</span>
+							{index < stepTitles.length - 1 && (
+								<div className={`flex-1 h-0.5 mx-2 sm:mx-3 ${index + 1 < step ? 'bg-green-500' : darkMode ? 'bg-gray-700' : 'bg-gray-200'}`} />
+							)}
 						</div>
+					))}
+				</div>
 
-						<RegisterForm
-							onSubmit={handleRegisterSubmit}
-							onSocialLogin={handleSocialLogin}
-							isLoading={isLoading}
-						/>
-					</>
-				) : (
-					<EmailConnect onConnect={handleConnectEmail} isLoading={isLoading} />
+				{/* Mobile-only: show current step title */}
+				<div className={`sm:hidden text-center text-sm font-medium mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+					Step {step} of {TOTAL_STEPS}: {stepTitles[step - 1]}
+				</div>
+				{step > 1 && (
+					<button
+						type="button"
+						onClick={() => setStep(step - 1)}
+						className={`flex items-center text-sm font-medium mb-4 transition-colors duration-200 ${
+							darkMode
+								? "text-gray-400 hover:text-brand-400"
+								: "text-gray-500 hover:text-brand-600"
+						}`}
+					>
+						<LucideIcons.ArrowLeft className="h-4 w-4 mr-1" />
+						Back to {stepTitles[step - 2]}
+					</button>
 				)}
+
+				<div className={`flex flex-col gap-2 ${step === 1 ? "block" : "hidden"}`}>
+					<div>
+						<div className="flex justify-center">
+							<div className="h-14 w-14 bg-gradient-to-br from-brand-600 to-accent-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+								<LucideIcons.UserPlus className="h-8 w-8" />
+							</div>
+						</div>
+						<h2
+							className={`mt-6 text-center text-3xl font-extrabold ${
+								darkMode ? "text-white" : "text-gray-900"
+							}`}
+						>
+							Create your account
+						</h2>
+						<div
+							className={`mt-2 text-center text-sm ${
+								darkMode ? "text-gray-400" : "text-gray-600"
+							}`}
+						>
+							Already have an account?{" "}
+							<Link
+								href="/login"
+								className={`font-medium transition-colors duration-200 ${
+									darkMode
+										? "text-brand-400 hover:text-brand-300"
+										: "text-brand-600 hover:text-brand-500"
+								}`}
+							>
+								Sign in
+							</Link>
+						</div>
+					</div>
+
+					<RegisterForm
+						onSubmit={handleRegisterSubmit}
+						onSocialLogin={handleSocialLogin}
+						isLoading={isLoading}
+					/>
+				</div>
+
+				<div className={step === 2 ? "block" : "hidden"}>
+					<EmailConnect 
+						onConnect={handleConnectEmail} 
+						onSkip={() => setStep(3)} 
+						isLoading={isLoading} 
+					/>
+				</div>
+
+				<div className={step === 3 ? "block" : "hidden"}>
+					<AdvancedSecurityStep 
+						onNext={() => setStep(4)} 
+						onSkip={() => setStep(4)} 
+					/>
+				</div>
+
+				<div className={step === 4 ? "block" : "hidden"}>
+					<EncryptionKeysStep
+						onComplete={handleFinalComplete}
+					/>
+				</div>
 			</animated.div>
 
 			<SocialLoginModal

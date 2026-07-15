@@ -110,7 +110,7 @@ export function SocialLoginModal({
 										index <= step
 											? "bg-green-500 text-white"
 											: index === step + 1
-											? "bg-indigo-500 text-white animate-pulse"
+											? "bg-brand-500 text-white animate-pulse"
 											: darkMode
 											? "bg-gray-700 text-gray-400"
 											: "bg-gray-200 text-gray-500"
@@ -132,8 +132,8 @@ export function SocialLoginModal({
 												: "text-green-600"
 											: index === step
 											? darkMode
-												? "text-indigo-400"
-												: "text-indigo-600"
+												? "text-brand-400"
+												: "text-brand-600"
 											: darkMode
 											? "text-gray-500"
 											: "text-gray-400"
@@ -152,7 +152,7 @@ export function SocialLoginModal({
 						}`}
 					>
 						<div
-							className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-700"
+							className="bg-gradient-to-r from-brand-500 to-accent-500 h-2 rounded-full transition-all duration-700"
 							style={{ width: `${((step + 1) / 4) * 100}%` }}
 						></div>
 					</div>

@@ -5,10 +5,11 @@ import { useTheme } from "@/components/providers/theme-provider";
 
 interface EmailConnectProps {
 	onConnect: (provider: "gmail" | "outlook" | "yahoo" | "other") => void;
+	onSkip?: () => void;
 	isLoading: boolean;
 }
 
-export function EmailConnect({ onConnect, isLoading }: EmailConnectProps) {
+export function EmailConnect({ onConnect, onSkip, isLoading }: EmailConnectProps) {
 	const { darkMode } = useTheme();
 
 	return (
@@ -44,13 +45,14 @@ export function EmailConnect({ onConnect, isLoading }: EmailConnectProps) {
 			</div>
 
 			<div className="mt-8 space-y-4">
-				<p
-					className={`text-sm ${darkMode ? "text-gray-300" : "text-gray-600"}`}
-				>
-					Connect your existing email account to start using secure, encrypted
-					email. We don't access your emails, we just add a layer of encryption
-					to your communications.
-				</p>
+				<div className={`p-4 rounded-lg text-sm ${darkMode ? "bg-brand-900/30 text-brand-200 border border-brand-800" : "bg-brand-50 text-brand-800 border border-brand-100"}`}>
+					<div className="flex">
+						<LucideIcons.Info className="h-5 w-5 mr-3 flex-shrink-0" />
+						<p>
+							You can connect an existing email account to sync your emails, or skip this step — a PrivaMail account will be created for sending and receiving encrypted emails.
+						</p>
+					</div>
+				</div>
 
 				<div className="grid grid-cols-1 gap-4 mt-6">
 					<button
@@ -64,7 +66,7 @@ export function EmailConnect({ onConnect, isLoading }: EmailConnectProps) {
 					>
 						<div className="flex items-center">
 							<svg
-								className="h-6 w-6 mr-4 text-red-500"
+								className="h-6 w-6 mr-4 text-red-500 flex-shrink-0"
 								viewBox="0 0 24 24"
 								fill="currentColor"
 							>
@@ -85,13 +87,14 @@ export function EmailConnect({ onConnect, isLoading }: EmailConnectProps) {
 									fill="#EA4335"
 								/>
 							</svg>
-							<span
-								className={`text-sm font-medium ${
-									darkMode ? "text-gray-300" : "text-gray-700"
-								}`}
-							>
-								Connect Gmail Account
-							</span>
+							<div className="text-left">
+								<span className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+									Connect Gmail Account
+								</span>
+								<span className={`block text-xs mt-0.5 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+									Sync your Gmail inbox and send encrypted emails
+								</span>
+							</div>
 						</div>
 						<LucideIcons.ArrowRight className="h-5 w-5 text-gray-400" />
 					</button>
@@ -107,20 +110,21 @@ export function EmailConnect({ onConnect, isLoading }: EmailConnectProps) {
 					>
 						<div className="flex items-center">
 							<svg
-								className="h-6 w-6 mr-4 text-blue-500"
+								className="h-6 w-6 mr-4 text-blue-500 flex-shrink-0"
 								viewBox="0 0 24 24"
 								fill="currentColor"
 							>
 								<path d="M2 6L10 4V20L2 18V6Z" fill="#0078D4" />
 								<path d="M12 4L22 2V22L12 20V4Z" fill="#0078D4" />
 							</svg>
-							<span
-								className={`text-sm font-medium ${
-									darkMode ? "text-gray-300" : "text-gray-700"
-								}`}
-							>
-								Connect Outlook Account
-							</span>
+							<div className="text-left">
+								<span className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+									Connect Outlook Account
+								</span>
+								<span className={`block text-xs mt-0.5 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+									Sync your Outlook or Hotmail inbox
+								</span>
+							</div>
 						</div>
 						<LucideIcons.ArrowRight className="h-5 w-5 text-gray-400" />
 					</button>
@@ -136,7 +140,7 @@ export function EmailConnect({ onConnect, isLoading }: EmailConnectProps) {
 					>
 						<div className="flex items-center">
 							<svg
-								className="h-6 w-6 mr-4 text-purple-600"
+								className="h-6 w-6 mr-4 text-accent-600 flex-shrink-0"
 								viewBox="0 0 24 24"
 								fill="currentColor"
 							>
@@ -145,13 +149,14 @@ export function EmailConnect({ onConnect, isLoading }: EmailConnectProps) {
 									fill="#6001D2"
 								/>
 							</svg>
-							<span
-								className={`text-sm font-medium ${
-									darkMode ? "text-gray-300" : "text-gray-700"
-								}`}
-							>
-								Connect Yahoo Account
-							</span>
+							<div className="text-left">
+								<span className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+									Connect Yahoo Account
+								</span>
+								<span className={`block text-xs mt-0.5 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+									Sync your Yahoo Mail inbox
+								</span>
+							</div>
 						</div>
 						<LucideIcons.ArrowRight className="h-5 w-5 text-gray-400" />
 					</button>
@@ -166,18 +171,38 @@ export function EmailConnect({ onConnect, isLoading }: EmailConnectProps) {
 						}`}
 					>
 						<div className="flex items-center">
-							<LucideIcons.Mail className="h-6 w-6 mr-4 text-gray-400" />
-							<span
-								className={`text-sm font-medium ${
-									darkMode ? "text-gray-300" : "text-gray-700"
-								}`}
-							>
-								Connect Other Provider
-							</span>
+							<LucideIcons.Mail className="h-6 w-6 mr-4 text-gray-400 flex-shrink-0" />
+							<div className="text-left">
+								<span className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+									Connect Other Provider
+								</span>
+								<span className={`block text-xs mt-0.5 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+									Connect by entering your email settings manually
+								</span>
+							</div>
 						</div>
 						<LucideIcons.ArrowRight className="h-5 w-5 text-gray-400" />
 					</button>
 				</div>
+				
+				{onSkip && (
+					<div className="mt-6 text-center">
+						<button
+							onClick={onSkip}
+							disabled={isLoading}
+							className={`w-full py-2.5 px-4 rounded-lg border-2 text-sm font-medium transition-colors duration-200 ${
+								darkMode
+									? "border-gray-600 text-gray-300 hover:bg-gray-700 hover:border-gray-500"
+									: "border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400"
+							}`}
+						>
+							Skip — I'll use PrivaMail only
+						</button>
+						<p className={`mt-2 text-xs ${darkMode ? "text-gray-500" : "text-gray-400"}`}>
+							You can always connect an email account later from Settings
+						</p>
+					</div>
+				)}
 			</div>
 		</>
 	);

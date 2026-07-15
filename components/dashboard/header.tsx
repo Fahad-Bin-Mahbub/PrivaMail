@@ -65,7 +65,7 @@ export function Header({
 				<div className="flex-shrink-0 flex items-center">
 					<button
 						type="button"
-						className={`md:hidden mr-2 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 ${
+						className={`md:hidden mr-2 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-500 ${
 							darkMode
 								? "text-gray-400 hover:text-white hover:bg-gray-700"
 								: "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
@@ -75,14 +75,14 @@ export function Header({
 						<span className="sr-only">Open sidebar</span>
 						<LucideIcons.Menu className="h-6 w-6" />
 					</button>
-					<div className="h-10 w-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center text-white shadow-lg">
+					<div className="h-10 w-10 bg-gradient-to-br from-brand-600 to-accent-600 rounded-lg flex items-center justify-center text-white shadow-lg">
 						<LucideIcons.Shield className="h-6 w-6" />
 					</div>
 					<span
 						className={`ml-3 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r hidden sm:block ${
 							darkMode
-								? "from-indigo-400 to-purple-400"
-								: "from-indigo-600 to-purple-600"
+								? "from-brand-400 to-accent-400"
+								: "from-brand-600 to-accent-600"
 						}`}
 					>
 						PrivaMail
@@ -97,7 +97,7 @@ export function Header({
 						</div>
 						<input
 							id="search"
-							className={`block w-full pl-10 pr-3 py-2 rounded-lg leading-5 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out ${
+							className={`block w-full pl-10 pr-3 py-2 rounded-lg leading-5 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-brand-500 focus:border-brand-500 sm:text-sm transition duration-150 ease-in-out ${
 								darkMode
 									? "bg-gray-700 border-none placeholder-gray-400 text-white"
 									: "bg-gray-100 border-none text-gray-900"
@@ -123,7 +123,7 @@ export function Header({
 					{/* Dark mode toggle */}
 					<button
 						onClick={toggleDarkMode}
-						className={`p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+						className={`p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 							darkMode
 								? "text-gray-300 hover:text-white hover:bg-gray-700"
 								: "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
@@ -141,7 +141,7 @@ export function Header({
 					<div className="relative" ref={notificationsRef}>
 						<button
 							onClick={() => setShowNotifications(!showNotifications)}
-							className={`p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 relative ${
+							className={`p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 relative ${
 								darkMode
 									? "text-gray-300 hover:text-white hover:bg-gray-700"
 									: "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
@@ -181,8 +181,8 @@ export function Header({
 											<span
 												className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
 													darkMode
-														? "bg-indigo-900 text-indigo-200"
-														: "bg-indigo-100 text-indigo-800"
+														? "bg-brand-900 text-brand-200"
+														: "bg-brand-100 text-brand-800"
 												}`}
 											>
 												{notifications.filter((n) => !n.read).length} new
@@ -208,8 +208,8 @@ export function Header({
 													} ${
 														!notification.read
 															? darkMode
-																? "bg-indigo-900 bg-opacity-20"
-																: "bg-indigo-50"
+																? "bg-brand-900 bg-opacity-20"
+																: "bg-brand-50"
 															: ""
 													}`}
 												>
@@ -242,7 +242,7 @@ export function Header({
 															</p>
 														</div>
 														{!notification.read && (
-															<span className="inline-block h-2 w-2 rounded-full bg-indigo-600"></span>
+															<span className="inline-block h-2 w-2 rounded-full bg-brand-600"></span>
 														)}
 													</div>
 												</div>
@@ -257,8 +257,8 @@ export function Header({
 										<button
 											className={`text-sm font-medium transition-colors duration-200 ${
 												darkMode
-													? "text-indigo-400 hover:text-indigo-300"
-													: "text-indigo-600 hover:text-indigo-700"
+													? "text-brand-400 hover:text-brand-300"
+													: "text-brand-600 hover:text-brand-700"
 											}`}
 											onClick={() => {
 												setNotifications(
@@ -278,14 +278,14 @@ export function Header({
 					<div className="relative" ref={userMenuRef}>
 						<button
 							onClick={() => setShowUserMenu(!showUserMenu)}
-							className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+							className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500"
 							id="user-menu"
 							aria-expanded="false"
 							aria-haspopup="true"
 						>
 							<span className="sr-only">Open user menu</span>
 							<img
-								className="h-9 w-9 rounded-full ring-2 ring-indigo-500 ring-opacity-50"
+								className="h-9 w-9 rounded-full ring-2 ring-brand-500 ring-opacity-50"
 								src={
 									user?.profileImage ||
 									`https://ui-avatars.com/api/?name=${encodeURIComponent(

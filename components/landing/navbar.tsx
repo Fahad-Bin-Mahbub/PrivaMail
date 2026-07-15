@@ -28,14 +28,14 @@ export function NavBar() {
 				<div className="flex justify-between h-16">
 					<div className="flex">
 						<div className="flex-shrink-0 flex items-center">
-							<div className="h-10 w-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center text-white shadow-lg">
+							<div className="h-10 w-10 bg-gradient-to-br from-brand-600 to-accent-600 rounded-lg flex items-center justify-center text-white shadow-lg">
 								<LucideIcons.Shield className="h-6 w-6" />
 							</div>
 							<span
 								className={`ml-3 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${
 									darkMode
-										? "from-indigo-400 to-purple-400"
-										: "from-indigo-600 to-purple-600"
+										? "from-brand-400 to-accent-400"
+										: "from-brand-600 to-accent-600"
 								}`}
 							>
 								PrivaMail
@@ -50,8 +50,8 @@ export function NavBar() {
 								}}
 								className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
 									darkMode
-										? "text-gray-300 hover:bg-gray-800 hover:text-indigo-400"
-										: "text-gray-500 hover:bg-gray-100 hover:text-indigo-600"
+										? "text-gray-300 hover:bg-gray-800 hover:text-brand-400"
+										: "text-gray-500 hover:bg-gray-100 hover:text-brand-600"
 								}`}
 							>
 								Features
@@ -64,8 +64,8 @@ export function NavBar() {
 								}}
 								className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
 									darkMode
-										? "text-gray-300 hover:bg-gray-800 hover:text-indigo-400"
-										: "text-gray-500 hover:bg-gray-100 hover:text-indigo-600"
+										? "text-gray-300 hover:bg-gray-800 hover:text-brand-400"
+										: "text-gray-500 hover:bg-gray-100 hover:text-brand-600"
 								}`}
 							>
 								How It Works
@@ -78,8 +78,8 @@ export function NavBar() {
 								}}
 								className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
 									darkMode
-										? "text-gray-300 hover:bg-gray-800 hover:text-indigo-400"
-										: "text-gray-500 hover:bg-gray-100 hover:text-indigo-600"
+										? "text-gray-300 hover:bg-gray-800 hover:text-brand-400"
+										: "text-gray-500 hover:bg-gray-100 hover:text-brand-600"
 								}`}
 							>
 								Pricing
@@ -89,10 +89,10 @@ export function NavBar() {
 					<div className="flex items-center">
 						<button
 							onClick={toggleDarkMode}
-							className={`p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+							className={`p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 								darkMode
-									? "text-gray-400 hover:text-indigo-400 hover:bg-gray-800"
-									: "text-gray-500 hover:text-indigo-600 hover:bg-gray-100"
+									? "text-gray-400 hover:text-brand-400 hover:bg-gray-800"
+									: "text-gray-500 hover:text-brand-600 hover:bg-gray-100"
 							}`}
 							aria-label="Toggle dark mode"
 						>
@@ -107,15 +107,15 @@ export function NavBar() {
 								href="/login"
 								className={`hidden md:inline-flex px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
 									darkMode
-										? "text-gray-300 hover:text-indigo-400"
-										: "text-gray-500 hover:text-indigo-600"
+										? "text-gray-300 hover:text-brand-400"
+										: "text-gray-500 hover:text-brand-600"
 								}`}
 							>
 								Log in
 							</Link>
 							<Link
 								href="/register"
-								className="bg-indigo-600 text-white hover:bg-indigo-700 shadow-md hover:shadow-lg px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 transform hover:-translate-y-0.5"
+								className="bg-brand-600 text-white hover:bg-brand-700 shadow-md hover:shadow-lg px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 transform hover:-translate-y-0.5"
 							>
 								Register
 							</Link>
@@ -125,10 +125,10 @@ export function NavBar() {
 						<div className="md:hidden ml-2">
 							<button
 								onClick={() => setMenuOpen(!menuOpen)}
-								className={`p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+								className={`p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 									darkMode
-										? "text-gray-400 hover:text-indigo-400 hover:bg-gray-800"
-										: "text-gray-500 hover:text-indigo-600 hover:bg-gray-100"
+										? "text-gray-400 hover:text-brand-400 hover:bg-gray-800"
+										: "text-gray-500 hover:text-brand-600 hover:bg-gray-100"
 								}`}
 							>
 								{menuOpen ? (
@@ -165,8 +165,8 @@ export function NavBar() {
 								}}
 								className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
 									darkMode
-										? "text-gray-300 hover:bg-gray-800 hover:text-indigo-400"
-										: "text-gray-500 hover:bg-gray-100 hover:text-indigo-600"
+										? "text-gray-300 hover:bg-gray-800 hover:text-brand-400"
+										: "text-gray-500 hover:bg-gray-100 hover:text-brand-600"
 								}`}
 							>
 								Features
@@ -179,8 +179,8 @@ export function NavBar() {
 								}}
 								className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
 									darkMode
-										? "text-gray-300 hover:bg-gray-800 hover:text-indigo-400"
-										: "text-gray-500 hover:bg-gray-100 hover:text-indigo-600"
+										? "text-gray-300 hover:bg-gray-800 hover:text-brand-400"
+										: "text-gray-500 hover:bg-gray-100 hover:text-brand-600"
 								}`}
 							>
 								How It Works
@@ -193,8 +193,8 @@ export function NavBar() {
 								}}
 								className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
 									darkMode
-										? "text-gray-300 hover:bg-gray-800 hover:text-indigo-400"
-										: "text-gray-500 hover:bg-gray-100 hover:text-indigo-600"
+										? "text-gray-300 hover:bg-gray-800 hover:text-brand-400"
+										: "text-gray-500 hover:bg-gray-100 hover:text-brand-600"
 								}`}
 							>
 								Pricing
@@ -203,8 +203,8 @@ export function NavBar() {
 								href="/login"
 								className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
 									darkMode
-										? "text-gray-300 hover:bg-gray-800 hover:text-indigo-400"
-										: "text-gray-500 hover:bg-gray-100 hover:text-indigo-600"
+										? "text-gray-300 hover:bg-gray-800 hover:text-brand-400"
+										: "text-gray-500 hover:bg-gray-100 hover:text-brand-600"
 								}`}
 								onClick={() => setMenuOpen(false)}
 							>

@@ -82,7 +82,7 @@ export function Pricing() {
 								className={`mt-8 block w-full border border-transparent rounded-md py-3 px-4 text-sm font-medium text-center transition-colors duration-200 ${
 									darkMode
 										? "bg-gray-700 text-white hover:bg-gray-600"
-										: "bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
+										: "bg-brand-50 text-brand-700 hover:bg-brand-100"
 								}`}
 							>
 								Get Started
@@ -151,11 +151,11 @@ export function Pricing() {
 						transition={{ duration: 0.2 }}
 						className={`rounded-2xl shadow-xl overflow-hidden border-2 relative transform scale-105 z-10 ${
 							darkMode
-								? "bg-gradient-to-br from-gray-800 to-gray-750 border-indigo-500"
-								: "bg-white border-indigo-500"
+								? "bg-gradient-to-br from-gray-800 to-gray-750 border-brand-500"
+								: "bg-white border-brand-500"
 						}`}
 					>
-						<div className="absolute top-0 right-0 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+						<div className="absolute top-0 right-0 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
 							POPULAR
 						</div>
 						<div className="p-8">
@@ -191,7 +191,7 @@ export function Pricing() {
 							</div>
 							<Link
 								href="/register"
-								className="mt-8 block w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 border border-transparent rounded-md shadow-sm py-3 px-4 text-sm font-medium text-white text-center transition-colors duration-200"
+								className="mt-8 block w-full bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 border border-transparent rounded-md shadow-sm py-3 px-4 text-sm font-medium text-white text-center transition-colors duration-200"
 							>
 								Try Pro Free for 14 Days
 							</Link>
@@ -305,8 +305,8 @@ export function Pricing() {
 								<span
 									className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
 										darkMode
-											? "bg-purple-900 text-purple-200"
-											: "bg-purple-100 text-purple-800"
+											? "bg-accent-900 text-accent-200"
+											: "bg-accent-100 text-accent-800"
 									}`}
 								>
 									Team
@@ -337,7 +337,7 @@ export function Pricing() {
 							</div>
 							<Link
 								href="/register"
-								className="mt-8 block w-full bg-indigo-600 hover:bg-indigo-700 border border-transparent rounded-md shadow-sm py-3 px-4 text-sm font-medium text-white text-center transition-colors duration-200"
+								className="mt-8 block w-full bg-brand-600 hover:bg-brand-700 border border-transparent rounded-md shadow-sm py-3 px-4 text-sm font-medium text-white text-center transition-colors duration-200"
 							>
 								Contact Sales
 							</Link>

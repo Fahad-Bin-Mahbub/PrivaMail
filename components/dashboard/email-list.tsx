@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import { useTheme } from "@/components/providers/theme-provider";
 import { Email, Label, User } from "@/lib/types";
@@ -20,6 +20,7 @@ interface EmailListProps {
 	onDelete: (emailIds: string[]) => void;
 	onArchive: (emailIds: string[]) => void;
 	onMarkAsRead: (emailIds: string[], read: boolean) => void;
+	onRestore?: (emailIds: string[]) => void;
 }
 
 export function EmailList({
@@ -33,11 +34,13 @@ export function EmailList({
 	onDelete,
 	onArchive,
 	onMarkAsRead,
+	onRestore,
 }: EmailListProps) {
 	const { darkMode } = useTheme();
 	const router = useRouter();
 	const [selectedEmails, setSelectedEmails] = useState<string[]>([]);
 	const [isSelectAll, setIsSelectAll] = useState(false);
+	const [emailToDelete, setEmailToDelete] = useState<string[] | null>(null);
 
 	// Handle email selection
 	const toggleEmailSelection = (emailId: string) => {
@@ -84,11 +87,11 @@ export function EmailList({
 				? "bg-yellow-500/20 text-yellow-200"
 				: "bg-yellow-100 text-yellow-800",
 			purple: darkMode
-				? "bg-purple-500/20 text-purple-200"
-				: "bg-purple-100 text-purple-800",
+				? "bg-accent-500/20 text-accent-200"
+				: "bg-accent-100 text-accent-800",
 			indigo: darkMode
-				? "bg-indigo-500/20 text-indigo-200"
-				: "bg-indigo-100 text-indigo-800",
+				? "bg-brand-500/20 text-brand-200"
+				: "bg-brand-100 text-brand-800",
 			pink: darkMode
 				? "bg-pink-500/20 text-pink-200"
 				: "bg-pink-100 text-pink-800",
@@ -114,9 +117,7 @@ export function EmailList({
 	};
 
 	const handleDelete = () => {
-		onDelete(selectedEmails);
-		setSelectedEmails([]);
-		setIsSelectAll(false);
+		setEmailToDelete(selectedEmails);
 	};
 
 	return (
@@ -151,6 +152,7 @@ export function EmailList({
 						<>
 							<button
 								onClick={() => handleMarkAsRead(true)}
+								title="Mark selected as read"
 								className={`p-1.5 rounded-md transition-colors duration-200 group relative ${
 									darkMode
 										? "text-gray-400 hover:text-gray-300 hover:bg-gray-700"
@@ -162,6 +164,7 @@ export function EmailList({
 							</button>
 							<button
 								onClick={() => handleMarkAsRead(false)}
+								title="Mark selected as unread"
 								className={`p-1.5 rounded-md transition-colors duration-200 group relative ${
 									darkMode
 										? "text-gray-400 hover:text-gray-300 hover:bg-gray-700"
@@ -173,6 +176,7 @@ export function EmailList({
 							</button>
 							<button
 								onClick={handleArchive}
+								title="Archive selected"
 								className={`p-1.5 rounded-md transition-colors duration-200 group relative ${
 									darkMode
 										? "text-gray-400 hover:text-gray-300 hover:bg-gray-700"
@@ -184,6 +188,7 @@ export function EmailList({
 							</button>
 							<button
 								onClick={handleDelete}
+								title="Delete selected"
 								className={`p-1.5 rounded-md transition-colors duration-200 group relative ${
 									darkMode
 										? "text-red-400 hover:text-red-300 hover:bg-gray-700"
@@ -230,22 +235,28 @@ export function EmailList({
 										darkMode ? "text-white" : "text-gray-900"
 									}`}
 								>
-									No emails
+									Your {activeFolder} is empty
 								</h3>
 								<p
-									className={`mt-1 text-sm ${
+									className={`mt-1 text-sm mb-6 ${
 										darkMode ? "text-gray-400" : "text-gray-500"
 									}`}
 								>
-									No emails in {activeFolder}.
+									{activeFolder === "inbox" ? "You're all caught up! Enjoy your day." : `No emails found in ${activeFolder}.`}
 								</p>
+								{activeFolder === "inbox" && (
+									<button onClick={() => window.dispatchEvent(new CustomEvent('open-compose'))} className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 focus:outline-none">
+										<LucideIcons.PenBox className="mr-2 h-4 w-4" />
+										Compose new email
+									</button>
+								)}
 							</div>
 						</div>
 					) : (
 						<div>
 							{/* Select all header */}
 							<div
-								className={`px-4 py-3 flex items-center border-b ${
+								className={`px-4 py-3 flex items-center justify-between border-b ${
 									darkMode
 										? "bg-gray-750 border-gray-700"
 										: "bg-gray-50 border-gray-200"
@@ -256,7 +267,7 @@ export function EmailList({
 										id="select-all"
 										name="select-all"
 										type="checkbox"
-										className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 rounded cursor-pointer ${
+										className={`h-4 w-4 text-brand-600 focus:ring-brand-500 rounded cursor-pointer ${
 											darkMode
 												? "bg-gray-700 border-gray-600"
 												: "border-gray-300"
@@ -264,6 +275,12 @@ export function EmailList({
 										checked={isSelectAll}
 										onChange={toggleSelectAll}
 									/>
+									<span className={`ml-3 text-sm font-medium ${darkMode ? "text-gray-400" : "text-gray-500"}`}>Select All</span>
+								</div>
+								<div className="flex items-center space-x-4 text-xs tour-encrypted-legend">
+									<span className={`flex items-center ${darkMode ? "text-gray-400" : "text-gray-500"}`}><div className="w-2 h-2 rounded-full bg-green-500 mr-1.5"></div> Encrypted</span>
+									<span className={`flex items-center ${darkMode ? "text-gray-400" : "text-gray-500"}`}><div className="w-2 h-2 rounded-full bg-amber-500 mr-1.5"></div> Not Encrypted</span>
+									<span className={`flex items-center ${darkMode ? "text-gray-400" : "text-gray-500"}`}><div className="w-2 h-2 rounded-full bg-brand-400 mr-1.5"></div> Unread</span>
 								</div>
 							</div>
 
@@ -280,17 +297,21 @@ export function EmailList({
 												? "rgba(55, 65, 81, 0.5)"
 												: "rgba(243, 244, 246, 0.5)",
 										}}
-										className={`relative group cursor-pointer ${
+										className={`relative group cursor-pointer border-l-4 ${
+											email.isEncrypted
+												? "border-l-green-500"
+												: "border-l-amber-500"
+										} ${
 											!email.read
 												? darkMode
-													? "bg-indigo-900/20"
-													: "bg-indigo-50"
+													? "bg-brand-900/20"
+													: "bg-brand-50"
 												: ""
 										} ${
 											selectedEmails.includes(email.id)
 												? darkMode
-													? "bg-indigo-900/40"
-													: "bg-indigo-100"
+													? "bg-brand-900/40"
+													: "bg-brand-100"
 												: ""
 										}`}
 										onClick={() => handleEmailClick(email.id)}
@@ -304,7 +325,7 @@ export function EmailList({
 													id={`select-${email.id}`}
 													name={`select-${email.id}`}
 													type="checkbox"
-													className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 rounded cursor-pointer ${
+													className={`h-4 w-4 text-brand-600 focus:ring-brand-500 rounded cursor-pointer ${
 														darkMode
 															? "bg-gray-700 border-gray-600"
 															: "border-gray-300"
@@ -318,7 +339,7 @@ export function EmailList({
 												<div className="flex justify-between items-center mb-1">
 													<div className="flex items-center space-x-3">
 														<div className="flex-shrink-0">
-															<div className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white uppercase shadow-sm">
+															<div className="h-10 w-10 rounded-full bg-gradient-to-br from-brand-500 to-accent-600 flex items-center justify-center text-white uppercase shadow-sm">
 																{email.from.split("@")[0].charAt(0)}
 															</div>
 														</div>
@@ -395,8 +416,8 @@ export function EmailList({
 																<span
 																	className={
 																		darkMode
-																			? "text-indigo-400"
-																			: "text-indigo-500"
+																			? "text-brand-400"
+																			: "text-brand-500"
 																	}
 																>
 																	<LucideIcons.Paperclip className="h-4 w-4" />
@@ -449,6 +470,55 @@ export function EmailList({
 													)}
 												</div>
 											</div>
+											
+											{/* Hover Actions */}
+											<div className={`hidden md:flex absolute right-4 bottom-4 space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${darkMode ? "bg-gray-800" : "bg-white"} p-2 rounded-lg shadow-md border ${darkMode ? "border-gray-700" : "border-gray-200"}`}>
+												{activeFolder === "trash" && onRestore ? (
+													<button
+														onClick={(e) => {
+															e.stopPropagation();
+															onRestore([email.id]);
+														}}
+														className={`p-1.5 rounded-md ${darkMode ? "text-gray-400 hover:text-green-400 hover:bg-gray-700" : "text-gray-500 hover:text-green-600 hover:bg-green-50"}`}
+														title="Restore"
+													>
+														<LucideIcons.RotateCcw className="h-4 w-4" />
+													</button>
+												) : (
+													<>
+														<button
+															onClick={(e) => {
+																e.stopPropagation();
+																onArchive([email.id]);
+															}}
+															className={`p-1.5 rounded-md ${darkMode ? "text-gray-400 hover:text-white hover:bg-gray-700" : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"}`}
+															title="Archive"
+														>
+															<LucideIcons.Archive className="h-4 w-4" />
+														</button>
+														<button
+															onClick={(e) => {
+																e.stopPropagation();
+																onMarkAsRead([email.id], !email.read);
+															}}
+															className={`p-1.5 rounded-md ${darkMode ? "text-gray-400 hover:text-white hover:bg-gray-700" : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"}`}
+															title={email.read ? "Mark as unread" : "Mark as read"}
+														>
+															{email.read ? <LucideIcons.Mail className="h-4 w-4" /> : <LucideIcons.MailCheck className="h-4 w-4" />}
+														</button>
+													</>
+												)}
+												<button
+													onClick={(e) => {
+														e.stopPropagation();
+														setEmailToDelete([email.id]);
+													}}
+													className={`p-1.5 rounded-md ${darkMode ? "text-gray-400 hover:text-red-400 hover:bg-gray-700" : "text-gray-500 hover:text-red-600 hover:bg-red-50"}`}
+													title="Delete"
+												>
+													<LucideIcons.Trash2 className="h-4 w-4" />
+												</button>
+											</div>
 										</div>
 									</motion.li>
 								))}
@@ -457,6 +527,64 @@ export function EmailList({
 					)}
 				</div>
 			</div>
+			<AnimatePresence>
+				{emailToDelete && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50"
+						onClick={(e) => e.stopPropagation()}
+					>
+						<motion.div
+							initial={{ scale: 0.95, opacity: 0 }}
+							animate={{ scale: 1, opacity: 1 }}
+							exit={{ scale: 0.95, opacity: 0 }}
+							className={`mx-4 p-6 rounded-xl shadow-2xl max-w-sm w-full ${
+								darkMode ? "bg-gray-800 border border-gray-700" : "bg-white"
+							}`}
+							onClick={(e) => e.stopPropagation()}
+						>
+							<div className="flex items-center space-x-3 text-red-500 mb-4">
+								<LucideIcons.AlertTriangle className="h-6 w-6" />
+								<h3 className={`text-lg font-bold ${darkMode ? "text-white" : "text-gray-900"}`}>
+									Delete {emailToDelete.length > 1 ? `${emailToDelete.length} Emails` : "Email"}
+								</h3>
+							</div>
+							<p className={`mb-6 text-sm ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
+								Are you sure you want to move {emailToDelete.length > 1 ? "these emails" : "this email"} to the trash?
+							</p>
+							<div className="flex justify-end space-x-3">
+								<button
+									onClick={(e) => {
+										e.stopPropagation();
+										setEmailToDelete(null);
+									}}
+									className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+										darkMode
+											? "bg-gray-700 hover:bg-gray-600 text-gray-300"
+											: "bg-gray-100 hover:bg-gray-200 text-gray-700"
+									}`}
+								>
+									Cancel
+								</button>
+								<button
+									onClick={(e) => {
+										e.stopPropagation();
+										onDelete(emailToDelete);
+										setSelectedEmails([]);
+										setIsSelectAll(false);
+										setEmailToDelete(null);
+									}}
+									className="px-4 py-2 rounded-lg font-medium bg-red-500 hover:bg-red-600 text-white transition-colors"
+								>
+									Delete
+								</button>
+							</div>
+						</motion.div>
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</div>
 	);
 }

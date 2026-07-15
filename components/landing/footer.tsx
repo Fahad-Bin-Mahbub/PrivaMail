@@ -12,14 +12,14 @@ export function Footer() {
 				<div className="grid grid-cols-1 md:grid-cols-4 gap-8">
 					<div className="col-span-1 md:col-span-2">
 						<div className="flex items-center">
-							<div className="h-10 w-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center text-white shadow-lg">
+							<div className="h-10 w-10 bg-gradient-to-br from-brand-600 to-accent-600 rounded-lg flex items-center justify-center text-white shadow-lg">
 								<LucideIcons.Shield className="h-6 w-6" />
 							</div>
 							<span
 								className={`ml-3 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${
 									darkMode
-										? "from-indigo-400 to-purple-400"
-										: "from-indigo-600 to-purple-600"
+										? "from-brand-400 to-accent-400"
+										: "from-brand-600 to-accent-600"
 								}`}
 							>
 								PrivaMail
@@ -39,8 +39,8 @@ export function Footer() {
 								href="#"
 								className={`transition-colors duration-200 ${
 									darkMode
-										? "text-gray-400 hover:text-indigo-400"
-										: "text-gray-400 hover:text-indigo-600"
+										? "text-gray-400 hover:text-brand-400"
+										: "text-gray-400 hover:text-brand-600"
 								}`}
 								aria-label="Twitter"
 							>
@@ -50,8 +50,8 @@ export function Footer() {
 								href="#"
 								className={`transition-colors duration-200 ${
 									darkMode
-										? "text-gray-400 hover:text-indigo-400"
-										: "text-gray-400 hover:text-indigo-600"
+										? "text-gray-400 hover:text-brand-400"
+										: "text-gray-400 hover:text-brand-600"
 								}`}
 								aria-label="LinkedIn"
 							>
@@ -61,8 +61,8 @@ export function Footer() {
 								href="#"
 								className={`transition-colors duration-200 ${
 									darkMode
-										? "text-gray-400 hover:text-indigo-400"
-										: "text-gray-400 hover:text-indigo-600"
+										? "text-gray-400 hover:text-brand-400"
+										: "text-gray-400 hover:text-brand-600"
 								}`}
 								aria-label="GitHub"
 							>
@@ -81,8 +81,8 @@ export function Footer() {
 									href="#"
 									className={`text-base transition-colors duration-200 ${
 										darkMode
-											? "text-gray-400 hover:text-indigo-400"
-											: "text-gray-500 hover:text-indigo-600"
+											? "text-gray-400 hover:text-brand-400"
+											: "text-gray-500 hover:text-brand-600"
 									}`}
 								>
 									Features
@@ -93,8 +93,8 @@ export function Footer() {
 									href="#how-it-works"
 									className={`text-base transition-colors duration-200 ${
 										darkMode
-											? "text-gray-400 hover:text-indigo-400"
-											: "text-gray-500 hover:text-indigo-600"
+											? "text-gray-400 hover:text-brand-400"
+											: "text-gray-500 hover:text-brand-600"
 									}`}
 								>
 									How It Works
@@ -105,8 +105,8 @@ export function Footer() {
 									href="#pricing"
 									className={`text-base transition-colors duration-200 ${
 										darkMode
-											? "text-gray-400 hover:text-indigo-400"
-											: "text-gray-500 hover:text-indigo-600"
+											? "text-gray-400 hover:text-brand-400"
+											: "text-gray-500 hover:text-brand-600"
 									}`}
 								>
 									Pricing
@@ -117,8 +117,8 @@ export function Footer() {
 									href="#"
 									className={`text-base transition-colors duration-200 ${
 										darkMode
-											? "text-gray-400 hover:text-indigo-400"
-											: "text-gray-500 hover:text-indigo-600"
+											? "text-gray-400 hover:text-brand-400"
+											: "text-gray-500 hover:text-brand-600"
 									}`}
 								>
 									Roadmap
@@ -137,8 +137,8 @@ export function Footer() {
 									href="#"
 									className={`text-base transition-colors duration-200 ${
 										darkMode
-											? "text-gray-400 hover:text-indigo-400"
-											: "text-gray-500 hover:text-indigo-600"
+											? "text-gray-400 hover:text-brand-400"
+											: "text-gray-500 hover:text-brand-600"
 									}`}
 								>
 									Help Center
@@ -149,8 +149,8 @@ export function Footer() {
 									href="#"
 									className={`text-base transition-colors duration-200 ${
 										darkMode
-											? "text-gray-400 hover:text-indigo-400"
-											: "text-gray-500 hover:text-indigo-600"
+											? "text-gray-400 hover:text-brand-400"
+											: "text-gray-500 hover:text-brand-600"
 									}`}
 								>
 									Contact Us
@@ -161,8 +161,8 @@ export function Footer() {
 									href="#"
 									className={`text-base transition-colors duration-200 ${
 										darkMode
-											? "text-gray-400 hover:text-indigo-400"
-											: "text-gray-500 hover:text-indigo-600"
+											? "text-gray-400 hover:text-brand-400"
+											: "text-gray-500 hover:text-brand-600"
 									}`}
 								>
 									Privacy Policy
@@ -173,8 +173,8 @@ export function Footer() {
 									href="#"
 									className={`text-base transition-colors duration-200 ${
 										darkMode
-											? "text-gray-400 hover:text-indigo-400"
-											: "text-gray-500 hover:text-indigo-600"
+											? "text-gray-400 hover:text-brand-400"
+											: "text-gray-500 hover:text-brand-600"
 									}`}
 								>
 									Terms of Service
@@ -194,10 +194,10 @@ export function Footer() {
 					<div className="mt-4 sm:mt-0">
 						<button
 							onClick={toggleDarkMode}
-							className={`p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+							className={`p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 								darkMode
-									? "text-gray-400 hover:text-indigo-400 hover:bg-gray-800"
-									: "text-gray-500 hover:text-indigo-600 hover:bg-gray-100"
+									? "text-gray-400 hover:text-brand-400 hover:bg-gray-800"
+									: "text-gray-500 hover:text-brand-600 hover:bg-gray-100"
 							}`}
 							aria-label="Toggle dark mode"
 						>

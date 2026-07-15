@@ -128,15 +128,15 @@ export default function LoginPage() {
 				className="absolute inset-0 overflow-hidden pointer-events-none"
 			>
 				{/* Floating orbs */}
-				<div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-r from-indigo-600/10 to-purple-600/10 rounded-full blur-3xl animate-pulse"></div>
-				<div className="absolute top-3/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-600/10 to-pink-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-				<div className="absolute top-1/2 left-3/4 w-64 h-64 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
+				<div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-r from-brand-600/10 to-accent-600/10 rounded-full blur-3xl animate-pulse"></div>
+				<div className="absolute top-3/4 right-1/4 w-96 h-96 bg-gradient-to-r from-accent-600/10 to-pink-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+				<div className="absolute top-1/2 left-3/4 w-64 h-64 bg-gradient-to-r from-blue-600/10 to-brand-600/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
 
 				{/* Animated particles */}
 				{[...Array(20)].map((_, i) => (
 					<div
 						key={i}
-						className="absolute w-2 h-2 bg-indigo-400/30 rounded-full animate-ping"
+						className="absolute w-2 h-2 bg-brand-400/30 rounded-full animate-ping"
 						style={{
 							top: `${Math.random() * 100}%`,
 							left: `${Math.random() * 100}%`,
@@ -153,8 +153,8 @@ export default function LoginPage() {
 					href="/"
 					className={`flex items-center transition-all duration-300 px-4 py-2 rounded-lg backdrop-blur-sm ${
 						darkMode
-							? "text-gray-400 hover:text-indigo-400 bg-gray-800/50 hover:bg-gray-700/50"
-							: "text-gray-500 hover:text-indigo-600 bg-white/50 hover:bg-white/70"
+							? "text-gray-400 hover:text-brand-400 bg-gray-800/50 hover:bg-gray-700/50"
+							: "text-gray-500 hover:text-brand-600 bg-white/50 hover:bg-white/70"
 					}`}
 				>
 					<LucideIcons.ArrowLeft className="h-5 w-5 mr-2" />

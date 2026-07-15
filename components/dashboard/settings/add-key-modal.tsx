@@ -47,7 +47,7 @@ export function AddKeyModal({
 						}`}
 					>
                         {/* Gradient Header */}
-                        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-5 flex items-center justify-between">
+                        <div className="bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-5 flex items-center justify-between">
                             <h3 className="text-xl font-bold text-white flex items-center">
                                 <LucideIcons.Key className="mr-2 h-6 w-6" />
                                 Generate New Key
@@ -89,7 +89,7 @@ export function AddKeyModal({
                                             id="key-name"
                                             value={keyName}
                                             onChange={(e) => setKeyName(e.target.value)}
-                                            className={`pl-10 shadow-sm block w-full sm:text-sm border rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500 ${
+                                            className={`pl-10 shadow-sm block w-full sm:text-sm border rounded-lg p-2.5 focus:ring-brand-500 focus:border-brand-500 ${
                                                 darkMode
                                                     ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                                                     : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
@@ -112,7 +112,7 @@ export function AddKeyModal({
                                         </label>
                                         <select
                                             id="key-type"
-                                            className={`shadow-sm block w-full sm:text-sm border rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500 ${
+                                            className={`shadow-sm block w-full sm:text-sm border rounded-lg p-2.5 focus:ring-brand-500 focus:border-brand-500 ${
                                                 darkMode
                                                     ? "bg-gray-700 border-gray-600 text-white"
                                                     : "bg-white border-gray-300 text-gray-900"
@@ -138,7 +138,7 @@ export function AddKeyModal({
                                             id="key-bits"
                                             value={keyBits}
                                             onChange={(e) => setKeyBits(e.target.value)}
-                                            className={`shadow-sm block w-full sm:text-sm border rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500 ${
+                                            className={`shadow-sm block w-full sm:text-sm border rounded-lg p-2.5 focus:ring-brand-500 focus:border-brand-500 ${
                                                 darkMode
                                                     ? "bg-gray-700 border-gray-600 text-white"
                                                     : "bg-white border-gray-300 text-gray-900"
@@ -166,7 +166,7 @@ export function AddKeyModal({
                                         </div>
                                         <select
                                             id="key-expiration"
-                                            className={`pl-10 shadow-sm block w-full sm:text-sm border rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500 ${
+                                            className={`pl-10 shadow-sm block w-full sm:text-sm border rounded-lg p-2.5 focus:ring-brand-500 focus:border-brand-500 ${
                                                 darkMode
                                                     ? "bg-gray-700 border-gray-600 text-white"
                                                     : "bg-white border-gray-300 text-gray-900"
@@ -185,7 +185,7 @@ export function AddKeyModal({
 									<button
 										type="button"
 										onClick={onClose}
-										className={`px-5 py-2.5 border text-sm font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+										className={`px-5 py-2.5 border text-sm font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 											darkMode
 												? "border-gray-600 text-gray-300 bg-gray-700 hover:bg-gray-600"
 												: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
@@ -196,7 +196,7 @@ export function AddKeyModal({
 									<button
 										type="submit"
 										disabled={isGenerating}
-										className={`inline-flex items-center px-6 py-2.5 border border-transparent shadow-md text-sm font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 transform hover:-translate-y-0.5 ${
+										className={`inline-flex items-center px-6 py-2.5 border border-transparent shadow-md text-sm font-medium rounded-lg text-white bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all duration-200 transform hover:-translate-y-0.5 ${
 											isGenerating ? "opacity-70 cursor-not-allowed transform-none" : ""
 										}`}
 									>

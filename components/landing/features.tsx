@@ -17,8 +17,8 @@ export function Features() {
 					<span
 						className={`inline-block px-3 py-1 mb-4 text-xs font-semibold rounded-full ${
 							darkMode
-								? "text-indigo-400 bg-indigo-900 bg-opacity-50"
-								: "text-indigo-600 bg-indigo-100"
+								? "text-brand-400 bg-brand-900 bg-opacity-50"
+								: "text-brand-600 bg-brand-100"
 						}`}
 					>
 						Key Features
@@ -59,8 +59,8 @@ export function Features() {
 							<div
 								className={`w-12 h-12 rounded-lg flex items-center justify-center mb-5 ${
 									darkMode
-										? "bg-indigo-900 text-indigo-400"
-										: "bg-indigo-100 text-indigo-600"
+										? "bg-brand-900 text-brand-400"
+										: "bg-brand-100 text-brand-600"
 								}`}
 							>
 								<LucideIcons.Lock className="h-6 w-6" />
@@ -117,8 +117,8 @@ export function Features() {
 							<div
 								className={`w-12 h-12 rounded-lg flex items-center justify-center mb-5 ${
 									darkMode
-										? "bg-purple-900 text-purple-400"
-										: "bg-purple-100 text-purple-600"
+										? "bg-accent-900 text-accent-400"
+										: "bg-accent-100 text-accent-600"
 								}`}
 							>
 								<LucideIcons.Mail className="h-6 w-6" />
@@ -394,21 +394,21 @@ export function Features() {
 
 				{/* Feature callout */}
 				<div className="mt-20">
-					<div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl overflow-hidden">
+					<div className="bg-gradient-to-r from-brand-600 to-accent-600 rounded-2xl shadow-xl overflow-hidden">
 						<div className="px-6 py-12 sm:px-12 lg:px-16">
 							<div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 								<div>
 									<h3 className="text-2xl font-bold text-white">
 										Advanced Security Dashboard
 									</h3>
-									<p className="mt-4 text-indigo-100">
+									<p className="mt-4 text-brand-100">
 										Monitor your security status, manage encryption keys, and
 										track email activity all from one intuitive dashboard.
 									</p>
 									<div className="mt-8">
 										<a
 											href="/register"
-											className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 shadow-md hover:shadow-lg transition-all duration-300"
+											className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-brand-600 bg-white hover:bg-gray-50 shadow-md hover:shadow-lg transition-all duration-300"
 										>
 											<LucideIcons.ShieldCheck className="mr-2 h-5 w-5" />
 											Try It Now
@@ -512,8 +512,8 @@ export function Features() {
 													<div
 														className={`w-10 h-10 rounded-full flex items-center justify-center ${
 															darkMode
-																? "bg-purple-900 text-purple-400"
-																: "bg-purple-100 text-purple-600"
+																? "bg-accent-900 text-accent-400"
+																: "bg-accent-100 text-accent-600"
 														}`}
 													>
 														<LucideIcons.Mail className="h-5 w-5" />
@@ -574,8 +574,8 @@ export function Features() {
 									</div>
 
 									{/* Decorative elements */}
-									<div className="absolute -bottom-3 -right-3 w-16 h-16 bg-purple-300 rounded-full filter blur-xl opacity-70"></div>
-									<div className="absolute -top-3 -left-3 w-16 h-16 bg-indigo-300 rounded-full filter blur-xl opacity-70"></div>
+									<div className="absolute -bottom-3 -right-3 w-16 h-16 bg-accent-300 rounded-full filter blur-xl opacity-70"></div>
+									<div className="absolute -top-3 -left-3 w-16 h-16 bg-brand-300 rounded-full filter blur-xl opacity-70"></div>
 								</div>
 							</div>
 						</div>

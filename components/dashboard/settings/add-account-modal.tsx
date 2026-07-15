@@ -46,7 +46,7 @@ export function AddAccountModal({
 								<button
 									type="button"
 									onClick={onClose}
-									className={`rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+									className={`rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 										darkMode
 											? "bg-gray-800 text-gray-400 hover:text-gray-300"
 											: "bg-white text-gray-400 hover:text-gray-500"
@@ -183,12 +183,12 @@ export function AddAccountModal({
 									<div className="flex items-center">
 										<div
 											className={`h-10 w-10 flex items-center justify-center rounded-full ${
-												darkMode ? "bg-purple-900" : "bg-purple-100"
+												darkMode ? "bg-accent-900" : "bg-accent-100"
 											}`}
 										>
 											<svg
 												className={`h-6 w-6 ${
-													darkMode ? "text-purple-400" : "text-purple-600"
+													darkMode ? "text-accent-400" : "text-accent-600"
 												}`}
 												viewBox="0 0 24 24"
 												fill="currentColor"
@@ -265,7 +265,7 @@ export function AddAccountModal({
 								<button
 									type="button"
 									onClick={onClose}
-									className={`inline-flex items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${
+									className={`inline-flex items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200 ${
 										darkMode
 											? "border-gray-600 text-gray-300 bg-gray-800 hover:bg-gray-700"
 											: "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"

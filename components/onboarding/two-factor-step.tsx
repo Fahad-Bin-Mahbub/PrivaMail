@@ -49,29 +49,29 @@ export function TwoFactorStep({ onNext, onSkip }: TwoFactorStepProps) {
 			<div
 				className={`p-5 rounded-lg border ${
 					darkMode
-						? "bg-indigo-900 bg-opacity-20 border-indigo-800"
-						: "bg-indigo-50 border-indigo-100"
+						? "bg-brand-900 bg-opacity-20 border-brand-800"
+						: "bg-brand-50 border-brand-100"
 				}`}
 			>
 				<div className="flex">
 					<div className="flex-shrink-0">
 						<LucideIcons.Info
 							className={`h-5 w-5 ${
-								darkMode ? "text-indigo-400" : "text-indigo-600"
+								darkMode ? "text-brand-400" : "text-brand-600"
 							}`}
 						/>
 					</div>
 					<div className="ml-3">
 						<h3
 							className={`text-sm font-medium ${
-								darkMode ? "text-indigo-200" : "text-indigo-800"
+								darkMode ? "text-brand-200" : "text-brand-800"
 							}`}
 						>
 							Why use two-factor authentication?
 						</h3>
 						<p
 							className={`mt-2 text-sm ${
-								darkMode ? "text-indigo-300" : "text-indigo-700"
+								darkMode ? "text-brand-300" : "text-brand-700"
 							}`}
 						>
 							Two-factor authentication adds an extra layer of security to your
@@ -130,8 +130,8 @@ export function TwoFactorStep({ onNext, onSkip }: TwoFactorStepProps) {
 							onClick={() => setBackupCodesVisible(!backupCodesVisible)}
 							className={`flex items-center justify-between w-full text-left text-sm font-medium transition-colors duration-200 ${
 								darkMode
-									? "text-indigo-400 hover:text-indigo-200"
-									: "text-indigo-600 hover:text-indigo-800"
+									? "text-brand-400 hover:text-brand-200"
+									: "text-brand-600 hover:text-brand-800"
 							}`}
 						>
 							<span>View backup codes</span>
@@ -162,8 +162,8 @@ export function TwoFactorStep({ onNext, onSkip }: TwoFactorStepProps) {
 										onClick={copyBackupCodes}
 										className={`text-xs flex items-center transition-colors duration-200 ${
 											darkMode
-												? "text-indigo-400 hover:text-indigo-200"
-												: "text-indigo-600 hover:text-indigo-800"
+												? "text-brand-400 hover:text-brand-200"
+												: "text-brand-600 hover:text-brand-800"
 										}`}
 									>
 										<LucideIcons.Copy className="h-3 w-3 mr-1" />
@@ -205,7 +205,7 @@ export function TwoFactorStep({ onNext, onSkip }: TwoFactorStepProps) {
 							type="checkbox"
 							checked={twoFactorEnabled}
 							onChange={(e) => setTwoFactorEnabled(e.target.checked)}
-							className={`focus:ring-indigo-500 h-4 w-4 text-indigo-600 rounded ${
+							className={`focus:ring-brand-500 h-4 w-4 text-brand-600 rounded ${
 								darkMode ? "border-gray-600" : "border-gray-300"
 							}`}
 						/>
@@ -235,8 +235,8 @@ export function TwoFactorStep({ onNext, onSkip }: TwoFactorStepProps) {
 					onClick={onSkip}
 					className={`text-sm font-medium transition-colors duration-200 flex items-center ${
 						darkMode
-							? "text-indigo-400 hover:text-indigo-300"
-							: "text-indigo-600 hover:text-indigo-500"
+							? "text-brand-400 hover:text-brand-300"
+							: "text-brand-600 hover:text-brand-500"
 					}`}
 				>
 					<LucideIcons.ArrowLeft className="mr-1 h-4 w-4" />
@@ -244,7 +244,7 @@ export function TwoFactorStep({ onNext, onSkip }: TwoFactorStepProps) {
 				</button>
 				<button
 					onClick={onNext}
-					className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+					className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200"
 				>
 					Next
 					<LucideIcons.ArrowRight className="ml-2 h-4 w-4" />

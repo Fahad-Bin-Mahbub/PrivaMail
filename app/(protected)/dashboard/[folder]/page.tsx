@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { EmailList } from "@/components/dashboard/email-list";
 import { useAuth } from "@/components/providers/auth-provider";
@@ -10,12 +10,14 @@ import { Email, Label } from "@/lib/types";
 // Mock data (move to a key if needed, or import from mock-db)
 // Importing from mock-db would be better, but mock-db is client-side state in memory?
 // mock-db.ts exports `db` which is a singleton class instance.
-import { db } from "@/lib/mock-db";
+import { db } from "@/lib/db";
 
 export default function FolderPage() {
 	const params = useParams();
+	const searchParams = useSearchParams();
 	const folder = Array.isArray(params.folder) ? params.folder[0] : params.folder;
 	const { user } = useAuth();
+	const q = searchParams.get("q")?.toLowerCase() || "";
 
 	const [emails, setEmails] = useState<Email[]>([]);
 	const [isRefreshing, setIsRefreshing] = useState(false);
@@ -94,25 +96,50 @@ export default function FolderPage() {
 				db.updateEmail(id, { folder: "trash" });
 			}
 		});
+		
+		// Optimistic update
+		setEmails(current => current.filter(e => !emailIds.includes(e.id)));
+		
 		toast.success("Moved to trash");
-		fetchEmails();
 	};
 
 	const handleArchive = (emailIds: string[]) => {
 		emailIds.forEach(id => db.updateEmail(id, { folder: "archived" }));
+		
+		// Optimistic update
+		setEmails(current => current.filter(e => !emailIds.includes(e.id)));
+		
 		toast.success("Archived");
-		fetchEmails();
 	};
 
 	const handleMarkAsRead = (emailIds: string[], read: boolean) => {
 		emailIds.forEach(id => db.updateEmail(id, { read }));
+		
+		// Optimistic update
+		setEmails(current => current.map(e => emailIds.includes(e.id) ? { ...e, read } : e));
+		
 		toast.success(read ? "Marked as read" : "Marked as unread");
-		fetchEmails();
 	};
+
+	const handleRestore = (emailIds: string[]) => {
+		emailIds.forEach(id => db.restoreEmail(id));
+		
+		// Optimistic update
+		setEmails(current => current.filter(e => !emailIds.includes(e.id)));
+		
+		toast.success("Restored to inbox");
+	};
+
+	const filteredEmails = emails.filter(e => {
+		if (!q) return true;
+		return e.subject.toLowerCase().includes(q) || 
+			   e.from.toLowerCase().includes(q) ||
+			   e.body.toLowerCase().includes(q);
+	});
 
 	return (
 		<EmailList
-			emails={emails}
+			emails={filteredEmails}
 			user={user}
 			labels={labels}
 			activeFolder={folder}
@@ -122,6 +149,7 @@ export default function FolderPage() {
 			onDelete={handleDelete}
 			onArchive={handleArchive}
 			onMarkAsRead={handleMarkAsRead}
+			onRestore={handleRestore}
 		/>
 	);
 }

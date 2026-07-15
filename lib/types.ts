@@ -46,6 +46,9 @@ export interface Email {
 	passwordProtected?: boolean;
 	passwordHint?: string;
 	labels?: string[];
+	forwardRestricted?: boolean;
+	autoDestroy?: boolean;
+	autoDestroyAfterRead?: boolean;
 }
 
 export interface Attachment {
