@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import { useTheme } from "@/components/providers/theme-provider";
+import { Logo } from "@/components/common/logo";
 
 export function NavBar() {
 	const { darkMode, toggleDarkMode } = useTheme();
@@ -28,9 +29,7 @@ export function NavBar() {
 				<div className="flex justify-between h-16">
 					<div className="flex">
 						<div className="flex-shrink-0 flex items-center">
-							<div className="h-10 w-10 bg-gradient-to-br from-brand-600 to-accent-600 rounded-lg flex items-center justify-center text-white shadow-lg">
-								<LucideIcons.Shield className="h-6 w-6" />
-							</div>
+							<Logo className="h-10 w-10" />
 							<span
 								className={`ml-3 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${
 									darkMode

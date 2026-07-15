@@ -7,6 +7,7 @@ import * as LucideIcons from "lucide-react";
 import toast from "react-hot-toast";
 import { useTheme } from "@/components/providers/theme-provider";
 import { useAuth } from "@/components/providers/auth-provider";
+import { Logo } from "@/components/common/logo";
 
 interface LoginFormProps {
 	onSocialLoginClick: (provider: "google" | "facebook") => void;
@@ -82,12 +83,7 @@ export function LoginForm({
 		>
 			<div className="text-center">
 				<div className="flex justify-center mb-6">
-					<div className="relative">
-						<div className="h-16 w-16 bg-gradient-to-br from-brand-600 via-accent-600 to-accent-600 rounded-2xl flex items-center justify-center text-white shadow-2xl transform hover:scale-105 transition-transform duration-300">
-							<LucideIcons.Shield className="h-8 w-8" />
-						</div>
-						<div className="absolute inset-0 bg-gradient-to-br from-brand-600 via-accent-600 to-accent-600 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
-					</div>
+					<Logo className="h-16 w-16 transform hover:scale-105 transition-transform duration-300" />
 				</div>
 				<h2 className="text-3xl font-bold bg-gradient-to-r from-brand-600 via-accent-600 to-accent-600 bg-clip-text text-transparent">
 					Welcome Back

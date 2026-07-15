@@ -8,7 +8,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "PrivaMail - Secure Email Encryption",
+	title: "PrivaMail",
 	description:
 		"Military-grade encryption for your emails. Secure, private, and easy to use.",
 };

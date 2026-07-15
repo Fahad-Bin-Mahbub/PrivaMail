@@ -2,6 +2,7 @@
 
 import * as LucideIcons from "lucide-react";
 import { useTheme } from "@/components/providers/theme-provider";
+import { Logo } from "@/components/common/logo";
 
 export function Footer() {
 	const { darkMode, toggleDarkMode } = useTheme();
@@ -12,9 +13,7 @@ export function Footer() {
 				<div className="grid grid-cols-1 md:grid-cols-4 gap-8">
 					<div className="col-span-1 md:col-span-2">
 						<div className="flex items-center">
-							<div className="h-10 w-10 bg-gradient-to-br from-brand-600 to-accent-600 rounded-lg flex items-center justify-center text-white shadow-lg">
-								<LucideIcons.Shield className="h-6 w-6" />
-							</div>
+							<Logo className="h-10 w-10" />
 							<span
 								className={`ml-3 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${
 									darkMode

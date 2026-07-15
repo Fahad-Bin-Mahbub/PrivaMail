@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import { useTheme } from "@/components/providers/theme-provider";
+import { Logo } from "@/components/common/logo";
 import { User } from "@/lib/types";
 
 interface HeaderProps {
@@ -75,9 +76,7 @@ export function Header({
 						<span className="sr-only">Open sidebar</span>
 						<LucideIcons.Menu className="h-6 w-6" />
 					</button>
-					<div className="h-10 w-10 bg-gradient-to-br from-brand-600 to-accent-600 rounded-lg flex items-center justify-center text-white shadow-lg">
-						<LucideIcons.Shield className="h-6 w-6" />
-					</div>
+					<Logo className="h-10 w-10" />
 					<span
 						className={`ml-3 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r hidden sm:block ${
 							darkMode
